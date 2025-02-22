@@ -6,11 +6,12 @@ manejo del tema global de la aplicación
 */
 
 class MainTheme {
-  /*modo claro */
+  //*==========MODO CLARO=========
   static final ThemeData whiteTheme = ThemeData.light().copyWith(
     appBarTheme: AppBarMainTheme.appbarLight,
     primaryColor: PaletteTheme.principal,
     highlightColor: PaletteTheme.secondary,
+    floatingActionButtonTheme: ButtonsTheme.floatingActionLight,
     colorScheme: const ColorScheme.light(primary: PaletteTheme.principal),
     textTheme: FontTheme.lightThemeFont,
     disabledColor: PaletteTheme
@@ -53,8 +54,9 @@ class MainTheme {
     // navigationBarTheme: NavBarMainThemeData.navigationBarLight,
   );
 
-  /* Tema Oscuro */
+  //*==========MODO OSCURO=========
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
+    floatingActionButtonTheme: ButtonsTheme.floatingActionDark,
     appBarTheme: AppBarMainTheme.appbarDark,
     primaryColor: PaletteTheme.secondary,
     highlightColor: PaletteTheme.principal,

@@ -10,7 +10,7 @@ class ButtonsTheme {
   static TextStyle typeFont = GoogleFonts.dmSans();
   static double borderRadius = 35;
 
-  //: textos para el modo claro
+  //*==========MODO CLARO=========
   static ElevatedButtonThemeData elevatedButtonLight = ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
           shadowColor: PaletteTheme.transparent,
@@ -68,8 +68,16 @@ class ButtonsTheme {
     iconSize: WidgetStateProperty.all(25),
     iconColor: WidgetStateProperty.all(PaletteTheme.principal),
   ));
-  //: textos para el modo oscuro
 
+  // Tema claro para FloatingActionButton
+  static FloatingActionButtonThemeData floatingActionLight =
+      FloatingActionButtonThemeData(
+    backgroundColor: PaletteTheme.blueViolet,
+    foregroundColor: PaletteTheme.principal,
+    elevation: 6,
+  );
+
+  //*==========MODO OSCURO=========
   static OutlinedButtonThemeData outlinedButtonDark = OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
     textStyle: typeFont.copyWith(
@@ -122,4 +130,12 @@ class ButtonsTheme {
     iconSize: WidgetStateProperty.all(25),
     iconColor: WidgetStateProperty.all(PaletteTheme.principal),
   ));
+
+  // Tema claro para FloatingActionButton
+  static FloatingActionButtonThemeData floatingActionDark =
+      FloatingActionButtonThemeData(
+    backgroundColor: PaletteTheme.blueViolet,
+    foregroundColor: PaletteTheme.principal,
+    elevation: 6,
+  );
 }
