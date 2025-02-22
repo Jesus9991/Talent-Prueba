@@ -1,3 +1,5 @@
+export 'package:talent_pitch/controllers/providers/add_reaction_provider.dart';
+export 'package:talent_pitch/screens/components/reaction_add_component.dart';
 export 'package:talent_pitch/controllers/services/vibration_effect_service.dart';
 export 'package:talent_pitch/models/list_categories_models.dart';
 export 'package:talent_pitch/controllers/providers/categories_list_provider.dart';

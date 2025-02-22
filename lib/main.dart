@@ -17,6 +17,7 @@ class MyProviderAPP extends StatelessWidget {
       providers: [
         /*provider para cargar las categorias*/
         ChangeNotifierProvider(create: (context) => CategoriesListProvider()),
+        ChangeNotifierProvider(create: (context) => AddReactionProvider()),
       ],
       child: const MyApp(),
     );

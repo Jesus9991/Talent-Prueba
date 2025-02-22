@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
@@ -21,7 +21,11 @@ class HomeScreen extends StatelessWidget {
             /*appbar */
             AppbarHomeComponents(),
             /*categorias*/
-            ListCategoriesHomeComponent()
+            ListCategoriesHomeComponent(),
+            /*lista de porfafolio*/
+            ListPortfolioComponent(),
+            /*talento descatado*/
+            HightlightTalentComponents(),
           ],
         ),
       ),

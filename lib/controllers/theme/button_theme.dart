@@ -9,6 +9,7 @@ class ButtonsTheme {
   /*tipo de fuente */
   static TextStyle typeFont = GoogleFonts.dmSans();
   static double borderRadius = 35;
+  static double borderCards = 15;
 
   //*==========MODO CLARO=========
   static ElevatedButtonThemeData elevatedButtonLight = ElevatedButtonThemeData(
