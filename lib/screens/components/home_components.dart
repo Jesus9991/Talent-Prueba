@@ -208,7 +208,7 @@ class ListCategoriesHomeComponent extends StatelessWidget {
           child: Container(
             height: size.height * .05,
             width: size.width,
-            margin: EdgeInsets.only(top: size.height * .01),
+            margin: EdgeInsets.only(top: size.height * .03),
             child: LayoutBuilder(
               builder: (context, constraints) {
                 return ListView.separated(
