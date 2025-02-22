@@ -15,4 +15,6 @@ class PaletteTheme {
   static const transparent = Colors.transparent;
   static const grey = Color.fromRGBO(240, 240, 240, 1);
   static const greyDark = Color.fromRGBO(89, 89, 89, 1);
+  static const redColor = Color.fromRGBO(156, 80, 90, 1);
+  static const categoryColors = Color.fromRGBO(52, 38, 46, 1);
 }

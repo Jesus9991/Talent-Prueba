@@ -1,3 +1,11 @@
+export 'package:talent_pitch/controllers/services/vibration_effect_service.dart';
+export 'package:talent_pitch/models/list_categories_models.dart';
+export 'package:talent_pitch/controllers/providers/categories_list_provider.dart';
+export 'package:talent_pitch/json/categorys_list.dart';
+export 'package:talent_pitch/screens/components/home_components.dart';
+export 'package:talent_pitch/screens/components/circle_buttons_component.dart';
+export 'package:talent_pitch/screens/components/app_bar_components.dart';
+export 'package:talent_pitch/screens/components/gradient_background.dart';
 export 'package:talent_pitch/controllers/theme/main_theme.dart';
 export 'package:talent_pitch/controllers/theme/app_bar_theme.dart';
 export 'package:talent_pitch/controllers/theme/button_theme.dart';

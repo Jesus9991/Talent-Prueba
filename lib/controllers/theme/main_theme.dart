@@ -15,12 +15,12 @@ class MainTheme {
     colorScheme: const ColorScheme.light(primary: PaletteTheme.principal),
     textTheme: FontTheme.lightThemeFont,
     disabledColor: PaletteTheme
-        .principal, //Establece el color para los elementos desactivados
-    dividerColor: PaletteTheme.principal, //Color del widget Divider()
+        .principal, //establece el color para los elementos desactivados
+    dividerColor: PaletteTheme.principal, //color del widget Divider()
     scaffoldBackgroundColor:
-        PaletteTheme.secondary, // Establece el color para el "scaffold"
+        PaletteTheme.secondary, //rstablece el color para el "scaffold"
     visualDensity: VisualDensity
-        .adaptivePlatformDensity, //Adaptándose a diferentes tamaños y resoluciones de pantalla.
+        .adaptivePlatformDensity, //adaptando a diferentes tamaños y resoluciones de pantalla.
     unselectedWidgetColor: PaletteTheme.principal, //widgets no seleccionados
     scrollbarTheme: ScrollbarThemeData(
             radius: const Radius.circular(10),
@@ -79,7 +79,7 @@ class MainTheme {
     textTheme: FontTheme.dartThemeFont,
     disabledColor: PaletteTheme.greyDark,
     dividerColor: PaletteTheme.greyDark,
-    scaffoldBackgroundColor: PaletteTheme.principal,
+    scaffoldBackgroundColor: PaletteTheme.secondary,
     visualDensity: VisualDensity.adaptivePlatformDensity,
     unselectedWidgetColor: PaletteTheme.greyDark,
     scrollbarTheme: ScrollbarThemeData(
