@@ -12,4 +12,7 @@ class PaletteTheme {
   static const blueViolet = Color.fromRGBO(115, 59, 236, 1);
   static const deepFucsia = Color.fromRGBO(192, 73, 176, 1);
   static const orange = Color.fromRGBO(254, 144, 47, 1);
+  static const transparent = Colors.transparent;
+  static const grey = Color.fromRGBO(240, 240, 240, 1);
+  static const greyDark = Color.fromRGBO(89, 89, 89, 1);
 }
