@@ -77,13 +77,10 @@ class _ReactionAddComponentState extends State<ReactionAddComponent>
                         BorderRadius.circular(ButtonsTheme.borderRadius),
                   ),
                   child: Center(
-                    child: Icon(
-                      reaction.isFavorite
-                          ? Iconsax.heart_bold
-                          : Iconsax.heart_outline,
-                      color: PaletteTheme.grey,
-                    ),
-                  ),
+                      child: reaction.isFavorite
+                          ? GradientIcon(icon: Iconsax.star_bold, size: 20)
+                          : Icon(Iconsax.star_1_outline,
+                              color: PaletteTheme.grey, size: 20)),
                 ),
               );
             },
@@ -96,10 +93,8 @@ class _ReactionAddComponentState extends State<ReactionAddComponent>
 
 /*numero de reacciones */
 class ReactionNumber extends StatelessWidget {
-  final String emoji;
   const ReactionNumber({
     super.key,
-    required this.emoji,
   });
 
   @override
@@ -109,30 +104,31 @@ class ReactionNumber extends StatelessWidget {
       builder: (context, reaction, child) {
         return Container(
           height: size.height * .03,
-          width: size.width * .15,
+          width: size.width * .18,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: PaletteTheme.categoryColors,
             borderRadius: BorderRadius.circular(ButtonsTheme.borderRadius),
           ),
-          child: IntrinsicWidth(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: size.width * .01,
-              children: [
-                Icon(Iconsax.heart_bold, size: 15, color: Colors.red),
-                Text(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: size.width * .01,
+            children: [
+              Icon(Iconsax.star_1_outline, size: 15),
+              SizedBox(
+                width: size.width * .07,
+                child: Text(
                   reaction.reactionCount.toString(),
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.start,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         );
       },

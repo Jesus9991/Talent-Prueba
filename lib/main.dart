@@ -18,6 +18,7 @@ class MyProviderAPP extends StatelessWidget {
         /*provider para cargar las categorias*/
         ChangeNotifierProvider(create: (context) => CategoriesListProvider()),
         ChangeNotifierProvider(create: (context) => AddReactionProvider()),
+        ChangeNotifierProvider(create: (context) => PlaylistUserProvider()),
       ],
       child: const MyApp(),
     );
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
       theme: MainTheme.darkTheme,
       // darkTheme: MainTheme.darkTheme,
       routes: MainRoutes.routes,
-      initialRoute: MainRoutes.homeScreenRoutes,
+      initialRoute: MainRoutes.navBarRoute,
     );
   }
 }

@@ -1,3 +1,7 @@
+export 'package:talent_pitch/controllers/providers/playlist_user_provider.dart';
+export 'package:talent_pitch/screens/components/tab_bar_component.dart';
+export 'package:talent_pitch/screens/components/images_components.dart';
+export 'package:talent_pitch/screens/components/icon_gradients_components.dart';
 export 'package:talent_pitch/controllers/providers/add_reaction_provider.dart';
 export 'package:talent_pitch/screens/components/reaction_add_component.dart';
 export 'package:talent_pitch/controllers/services/vibration_effect_service.dart';

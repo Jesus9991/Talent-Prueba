@@ -95,10 +95,7 @@ class HightlightTalentComponents extends StatelessWidget {
             spacing: size.width * .02,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ReactionNumber(emoji: '\u2764\uFE0F'),
-              ReactionAddComponent()
-            ],
+            children: [ReactionNumber(), ReactionAddComponent()],
           ),
         ],
       ),
@@ -141,29 +138,10 @@ class ListPortfolioComponent extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       /*FOTO DE PERFIL*/
-                      Container(
-                        height: size.height * 0.06,
-                        width: size.width * 0.13,
-                        padding: EdgeInsets.all(1),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            colors: [
-                              PaletteTheme.blueViolet,
-                              PaletteTheme.redColor,
-                            ],
-                          ),
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: PaletteTheme.categoryColors,
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                    'https://t3.ftcdn.net/jpg/11/17/84/58/360_F_1117845893_al1Yuw9YqxcxWsUz5XzhFQ4DOuimQodj.jpg'),
-                              )),
-                        ),
+
+                      PhotoBorderGradientComponent(
+                        image:
+                            'https://t3.ftcdn.net/jpg/11/17/84/58/360_F_1117845893_al1Yuw9YqxcxWsUz5XzhFQ4DOuimQodj.jpg',
                       ),
                       SizedBox(height: size.height * .005),
                       /*NOMBRE DE USUARIO*/
