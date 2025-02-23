@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +10,7 @@ import 'package:video_player/video_player.dart';
 /*
 PANTALLA PARA REPRODUCIR EL VIDEO EN PANTALLA COMPLETA
 */
-class OpenVideoScreen extends StatelessWidget {
+class OpenVideoScreen extends StatefulWidget {
   final String title; //usamos herencia de datos para usar los datos en memoria
   final String userName;
   final String avatar;
@@ -46,6 +48,43 @@ class OpenVideoScreen extends StatelessWidget {
   });
 
   @override
+  State<OpenVideoScreen> createState() => _OpenVideoScreenState();
+}
+
+class _OpenVideoScreenState extends State<OpenVideoScreen> {
+  bool _showControls = true;
+  Timer? _hideControlsTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startHideControlsTimer();
+  }
+
+  void _toggleControls() {
+    setState(() {
+      _showControls = true;
+    });
+
+    _startHideControlsTimer();
+  }
+
+  void _startHideControlsTimer() {
+    _hideControlsTimer?.cancel();
+    _hideControlsTimer = Timer(Duration(seconds: 3), () {
+      setState(() {
+        _showControls = false;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _hideControlsTimer?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
@@ -63,10 +102,19 @@ class OpenVideoScreen extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   children: [
                     /*video */
-                    VideoPlayer(controller),
+                    InkWell(
+                        onTap: () => _toggleControls(),
+                        child: VideoPlayer(widget.controller)),
+                    if (_showControls)
+                      Container(
+                        height: size.height,
+                        width: size.width,
+                        color: PaletteTheme.secondary
+                            .withAlpha((0.6 * 255).toInt()),
+                      ),
                     /*linea de progreso */
                     VideoProgressIndicator(
-                      controller,
+                      widget.controller,
                       allowScrubbing: true,
                       colors: VideoProgressColors(
                           playedColor: PaletteTheme.principal,
@@ -75,6 +123,50 @@ class OpenVideoScreen extends StatelessWidget {
                           bufferedColor: PaletteTheme.principal
                               .withAlpha((0.3 * 255).toInt())),
                     ),
+
+                    //icono para pausar, adelantar o retroceder
+                    if (_showControls)
+                      Align(
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: Icon(Iconsax.backward_10_seconds_outline,
+                                  size: 30),
+                              onPressed: () {
+                                widget.controller.seekTo(
+                                  widget.controller.value.position -
+                                      Duration(seconds: 10),
+                                );
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                  widget.controller.value.isPlaying
+                                      ? Iconsax.pause_circle_outline
+                                      : Iconsax.play_outline,
+                                  size: 30),
+                              onPressed: () {
+                                widget.controller.value.isPlaying
+                                    ? widget.controller.pause()
+                                    : widget.controller.play();
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(Iconsax.forward_10_seconds_outline,
+                                  size: 30),
+                              onPressed: () {
+                                widget.controller.seekTo(
+                                  widget.controller.value.position +
+                                      Duration(seconds: 10),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
                   ],
                 ),
               ),
@@ -91,16 +183,16 @@ class OpenVideoScreen extends StatelessWidget {
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                     leading: PhotoBorderGradientComponent(
-                      image: avatar,
+                      image: widget.avatar,
                       fit: BoxFit.contain,
                     ),
                     title: GradientText(
-                      text: userName,
+                      text: widget.userName,
                       maxLines: 1,
                       textAlign: TextAlign.start,
                     ),
                     subtitle: Text(
-                      title,
+                      widget.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.start,
@@ -114,15 +206,15 @@ class OpenVideoScreen extends StatelessWidget {
                     children: [
                       /*numero de compartidos */
                       SharedNumbersComponent(
-                        number: shared,
+                        number: widget.shared,
                         icon: Iconsax.send_2_outline,
                       ),
                       /*numero de review */
                       SharedNumbersComponent(
-                        number: review,
+                        number: widget.review,
                         icon: Iconsax.message_2_outline,
                       ),
-                      if (instagram.isNotEmpty)
+                      if (widget.instagram.isNotEmpty)
                         IconContainerTap(
                           icon: Iconsax.instagram_outline,
                           child: GradientIcon(
@@ -132,7 +224,7 @@ class OpenVideoScreen extends StatelessWidget {
                             await openUrlInstagram();
                           },
                         ),
-                      if (facebook.isNotEmpty)
+                      if (widget.facebook.isNotEmpty)
                         IconContainerTap(
                           icon: Iconsax.facebook_outline,
                           child: GradientIcon(
@@ -145,55 +237,67 @@ class OpenVideoScreen extends StatelessWidget {
                   ),
 
                   //habilidades
-                  if (skills.isNotEmpty) SizedBox(height: size.height * .02),
-                  if (skills.isNotEmpty) _TitleComponent(title: 'Habilidades'),
-                  if (skills.isNotEmpty) _SubtitleComponent(subtitle: skills),
+                  if (widget.skills.isNotEmpty)
+                    SizedBox(height: size.height * .02),
+                  if (widget.skills.isNotEmpty)
+                    _TitleComponent(title: 'Habilidades'),
+                  if (widget.skills.isNotEmpty)
+                    _SubtitleComponent(subtitle: widget.skills),
                   //herramientas
-                  if (tools.isNotEmpty) SizedBox(height: size.height * .02),
-                  if (tools.isNotEmpty)
+                  if (widget.tools.isNotEmpty)
+                    SizedBox(height: size.height * .02),
+                  if (widget.tools.isNotEmpty)
                     _TitleComponent(title: 'Herramientas  '),
-                  if (tools.isNotEmpty) _SubtitleComponent(subtitle: tools),
+                  if (widget.tools.isNotEmpty)
+                    _SubtitleComponent(subtitle: widget.tools),
                   //leguajes
-                  if (languages.isNotEmpty) SizedBox(height: size.height * .02),
-                  if (languages.isNotEmpty) _TitleComponent(title: 'Lenguajes'),
-                  if (languages.isNotEmpty)
-                    _SubtitleComponent(subtitle: languages),
+                  if (widget.languages.isNotEmpty)
+                    SizedBox(height: size.height * .02),
+                  if (widget.languages.isNotEmpty)
+                    _TitleComponent(title: 'Lenguajes'),
+                  if (widget.languages.isNotEmpty)
+                    _SubtitleComponent(subtitle: widget.languages),
 
-                  if (dreams.isNotEmpty) SizedBox(height: size.height * .02),
+                  if (widget.dreams.isNotEmpty)
+                    SizedBox(height: size.height * .02),
                   //sueños
-                  if (dreams.isNotEmpty)
+                  if (widget.dreams.isNotEmpty)
                     _TitleComponent(title: 'Marcas de sus sueños'),
                   //descripcion
-                  if (dreams.isNotEmpty) _SubtitleComponent(subtitle: dreams),
+                  if (widget.dreams.isNotEmpty)
+                    _SubtitleComponent(subtitle: widget.dreams),
 
-                  if (rolesDream.isNotEmpty)
+                  if (widget.rolesDream.isNotEmpty)
                     SizedBox(height: size.height * .02),
                   //roles de ensueño
-                  if (rolesDream.isNotEmpty)
+                  if (widget.rolesDream.isNotEmpty)
                     _TitleComponent(title: 'Roles de ensueño'),
-                  if (rolesDream.isNotEmpty)
-                    _SubtitleComponent(subtitle: rolesDream),
+                  if (widget.rolesDream.isNotEmpty)
+                    _SubtitleComponent(subtitle: widget.rolesDream),
                   //equipo de ensueño
-                  if (dreamTeam.isNotEmpty) SizedBox(height: size.height * .02),
-                  if (dreamTeam.isNotEmpty)
+                  if (widget.dreamTeam.isNotEmpty)
+                    SizedBox(height: size.height * .02),
+                  if (widget.dreamTeam.isNotEmpty)
                     _TitleComponent(title: 'Equipo de ensueño'),
-                  if (dreamTeam.isNotEmpty)
-                    _SubtitleComponent(subtitle: dreamTeam),
+                  if (widget.dreamTeam.isNotEmpty)
+                    _SubtitleComponent(subtitle: widget.dreamTeam),
                   //conocimientos
-                  if (knowledge.isNotEmpty) SizedBox(height: size.height * .02),
-                  if (knowledge.isNotEmpty)
+                  if (widget.knowledge.isNotEmpty)
+                    SizedBox(height: size.height * .02),
+                  if (widget.knowledge.isNotEmpty)
                     _TitleComponent(title: 'Conocimientos'),
-                  if (knowledge.isNotEmpty)
-                    _SubtitleComponent(subtitle: knowledge),
+                  if (widget.knowledge.isNotEmpty)
+                    _SubtitleComponent(subtitle: widget.knowledge),
                   //tags
-                  if (hobbies.isNotEmpty) SizedBox(height: size.height * .02),
-                  if (hobbies.isNotEmpty)
+                  if (widget.hobbies.isNotEmpty)
+                    SizedBox(height: size.height * .02),
+                  if (widget.hobbies.isNotEmpty)
                     Wrap(
                       alignment: WrapAlignment.start,
                       crossAxisAlignment: WrapCrossAlignment.start,
                       spacing: size.width * .03,
                       runSpacing: size.height * .005,
-                      children: hobbies.map((hobby) {
+                      children: widget.hobbies.map((hobby) {
                         return Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: size.width * .03,
@@ -225,8 +329,10 @@ class OpenVideoScreen extends StatelessWidget {
 
   /*abre instagram */
   openUrlInstagram() async {
-    final Uri appUri = Uri.parse('instagram://user?username=$instagram');
-    final Uri webUri = Uri.parse('https://www.instagram.com/$instagram');
+    final Uri appUri =
+        Uri.parse('instagram://user?username=${widget.instagram}');
+    final Uri webUri =
+        Uri.parse('https://www.instagram.com/${widget.instagram}');
     if (await canLaunchUrl(appUri)) {
       await launchUrl(appUri);
     } else {
@@ -236,8 +342,8 @@ class OpenVideoScreen extends StatelessWidget {
 
   /*abre facebook*/
   openUrlFacebook() async {
-    final Uri appUri = Uri.parse('fb://profile/$facebook');
-    final Uri webUri = Uri.parse('https://www.facebook.com/$facebook');
+    final Uri appUri = Uri.parse('fb://profile/${widget.facebook}');
+    final Uri webUri = Uri.parse('https://www.facebook.com/${widget.facebook}');
     if (await canLaunchUrl(appUri)) {
       await launchUrl(appUri);
     } else {
