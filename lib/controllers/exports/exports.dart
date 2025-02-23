@@ -1,3 +1,8 @@
+export 'package:talent_pitch/screens/components/fade_in_animation_components.dart';
+export 'package:talent_pitch/controllers/providers/hightlight_persons_home_provider.dart';
+export 'package:talent_pitch/models/hightlight_persons_home.model.dart';
+export 'package:talent_pitch/controllers/providers/home_data_provider.dart';
+export 'package:talent_pitch/models/home_data_models.dart';
 export 'package:talent_pitch/controllers/providers/playlist_user_provider.dart';
 export 'package:talent_pitch/screens/components/tab_bar_component.dart';
 export 'package:talent_pitch/screens/components/images_components.dart';
@@ -19,3 +24,4 @@ export 'package:talent_pitch/controllers/theme/font_theme.dart';
 export 'package:talent_pitch/controllers/theme/palette_color_theme.dart';
 export 'package:talent_pitch/controllers/path/url_api_path.dart';
 export 'package:talent_pitch/controllers/path/images_path.dart';
+export 'package:talent_pitch/screens/components/shimmers_effects_components.dart';

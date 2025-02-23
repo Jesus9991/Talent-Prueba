@@ -19,6 +19,9 @@ class MyProviderAPP extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CategoriesListProvider()),
         ChangeNotifierProvider(create: (context) => AddReactionProvider()),
         ChangeNotifierProvider(create: (context) => PlaylistUserProvider()),
+        /*provider para los datos del home*/
+        ChangeNotifierProvider(create: (context) => HomeDataProvider()),
+        ChangeNotifierProvider(create: (context) => HightPersonsHomeProvider()),
       ],
       child: const MyApp(),
     );

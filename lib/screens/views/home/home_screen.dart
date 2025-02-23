@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:talent_pitch/controllers/exports/exports.dart';
 
 /*
@@ -13,21 +14,28 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
-      body: GradientBackground(
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          slivers: [
-            /*appbar */
-            AppbarHomeComponents(),
-            /*categorias*/
-            ListCategoriesHomeComponent(),
-            /*lista de porfafolio*/
-            ListPortfolioComponent(),
-            /*talento descatado*/
-            HightlightTalentComponents(),
-          ],
-        ),
+      body: Consumer<HomeDataProvider>(
+        builder: (context, feth, child) {
+          return GradientBackground(
+            child: FadeInComponent(
+              child: CustomScrollView(
+                physics: const BouncingScrollPhysics(),
+                keyboardDismissBehavior:
+                    ScrollViewKeyboardDismissBehavior.onDrag,
+                slivers: [
+                  /*appbar */
+                  AppbarHomeComponents(),
+                  /*categorias*/
+                  ListCategoriesHomeComponent(),
+                  /*lista de porfafolio*/
+                  ListPortfolioComponent(),
+                  /*talento descatado*/
+                  HightlightTalentComponents(),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
