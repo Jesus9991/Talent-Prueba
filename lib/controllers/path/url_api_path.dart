@@ -14,4 +14,6 @@ class PathApi {
   /*mas vistos*/
   static String mostViewed =
       '/homeservice/categories/d/talentees/most_viewed_talent/video/null/';
+/*lista de categorias*/
+  static String listCategories = '/homeservice/categories-static-home';
 }

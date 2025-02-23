@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:talent_pitch/controllers/exports/exports.dart';
 import 'package:talent_pitch/controllers/theme/palette_color_theme.dart';
 
 /*
@@ -108,6 +109,41 @@ class ListShimmerHighlight extends StatelessWidget {
                 ),
                 ShimmerWidget(width: size.width * .2, height: size.height * .02)
               ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class ListShimmerCategories extends StatelessWidget {
+  const ListShimmerCategories({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Container(
+      height: size.height * .05,
+      width: size.width,
+      alignment: Alignment.topCenter,
+      margin: EdgeInsets.only(top: size.height * .03),
+      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+      child: ListView.separated(
+        itemCount: 4,
+        padding: EdgeInsets.only(left: size.width * .04),
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        separatorBuilder: (context, index) => SizedBox(width: size.width * .05),
+        itemBuilder: (context, index) {
+          return SizedBox(
+            width: size.width * .3,
+            child: ShimmerWidget(
+              height: size.height * 0.06,
+              width: size.width * 0.13,
+              isCircular: false,
+              borderRadius: ButtonsTheme.borderRadius,
             ),
           );
         },

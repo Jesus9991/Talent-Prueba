@@ -7,7 +7,6 @@ COMPONENTES: componentes para el home, listas
 */
 
 /*talento destacado */
-//Todo: conectar con backend(datos reales)
 class HightlightTalentComponents extends StatelessWidget {
   const HightlightTalentComponents({super.key});
 
@@ -263,6 +262,24 @@ class ListCategoriesHomeComponent extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Consumer<CategoriesListProvider>(
       builder: (context, category, child) {
+        if (category.isLoading) {
+          return const SliverToBoxAdapter(
+            child: ListShimmerCategories(),
+          );
+        }
+
+        if (category.errorMessage != null) {
+          return SliverToBoxAdapter(
+            child: Center(),
+          );
+        }
+
+        if (category.categories.data.isEmpty) {
+          return const SliverToBoxAdapter(
+            child: Center(),
+          );
+        }
+
         return SliverToBoxAdapter(
           child: Container(
             height: size.height * .05,
@@ -271,7 +288,7 @@ class ListCategoriesHomeComponent extends StatelessWidget {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 return ListView.separated(
-                  itemCount: category.categories.length,
+                  itemCount: category.categories.data.length,
                   padding: EdgeInsets.only(left: size.width * .04),
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
@@ -280,7 +297,7 @@ class ListCategoriesHomeComponent extends StatelessWidget {
                   separatorBuilder: (context, index) =>
                       SizedBox(width: size.width * .03),
                   itemBuilder: (context, index) {
-                    final data = category.categories[index];
+                    final data = category.categories.data[index];
                     return InkWell(
                       onTap: () async {
                         /*selecciona la categoria */
@@ -295,22 +312,31 @@ class ListCategoriesHomeComponent extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: size.width * 0.04, vertical: 8),
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(
-                                  ButtonsTheme.borderRadius),
-                              gradient: LinearGradient(
-                                colors: category.selectCategory == index
-                                    ? [
-                                        PaletteTheme.blueViolet,
-                                        PaletteTheme.redColor,
-                                      ]
-                                    : [
-                                        PaletteTheme.categoryColors,
-                                        PaletteTheme.categoryColors,
-                                      ],
-                              )),
+                            image: category.selectCategory == index
+                                ? DecorationImage(
+                                    fit: BoxFit.cover,
+                                    onError: (exception, stackTrace) =>
+                                        AssetImage(ImagesPath.bannerBlack),
+                                    image: NetworkImage(data.image))
+                                : null,
+                            borderRadius: BorderRadius.circular(
+                                ButtonsTheme.borderRadius),
+                            color: PaletteTheme.categoryColors,
+                            // gradient: LinearGradient(
+                            //   colors: category.selectCategory != index
+                            //       ? [
+                            //           PaletteTheme.blueViolet,
+                            //           PaletteTheme.redColor,
+                            //         ]
+                            //       : [
+                            //           PaletteTheme.categoryColors,
+                            //           PaletteTheme.categoryColors,
+                            //         ],
+                            // ),
+                          ),
                           child: Center(
                             child: Text(
-                              data.category,
+                              data.title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
@@ -318,10 +344,10 @@ class ListCategoriesHomeComponent extends StatelessWidget {
                                   .textTheme
                                   .headlineMedium!
                                   .copyWith(
-                                      fontWeight:
-                                          category.selectCategory == index
-                                              ? FontWeight.bold
-                                              : FontWeight.w300),
+                                    fontWeight: category.selectCategory == index
+                                        ? FontWeight.bold
+                                        : FontWeight.w100,
+                                  ),
                             ),
                           ),
                         ),
