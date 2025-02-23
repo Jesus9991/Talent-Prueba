@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:talent_pitch/controllers/exports/exports.dart';
-import 'package:video_player/video_player.dart';
 
 /*
 PANTALLA: para los detalles de la persona, seleccionada en el home
