@@ -186,6 +186,7 @@ class SharedNumbersComponent extends StatelessWidget {
 
 class IconContainerTap extends StatelessWidget {
   final IconData icon;
+  final Widget? child;
   final double? height;
   final double? weight;
   final Function onTap;
@@ -195,6 +196,7 @@ class IconContainerTap extends StatelessWidget {
     this.height,
     this.weight,
     required this.onTap,
+    this.child,
   });
 
   @override
@@ -210,7 +212,7 @@ class IconContainerTap extends StatelessWidget {
           color: PaletteTheme.categoryColors,
           borderRadius: BorderRadius.circular(ButtonsTheme.borderRadius),
         ),
-        child: Center(child: Icon(icon, size: 15)),
+        child: child ?? Center(child: Icon(icon, size: 15)),
       ),
     );
   }

@@ -16,17 +16,33 @@ class OpenVideoScreen extends StatelessWidget {
   final String review;
   final String instagram;
   final String facebook;
+  final String dreams;
+  final String rolesDream;
+  final String dreamTeam;
+  final String knowledge;
+  final String languages;
+  final String skills;
+  final String tools;
+  final List<String> hobbies;
   final VideoPlayerController controller;
   const OpenVideoScreen({
     super.key,
     required this.title,
     required this.userName,
     required this.avatar,
-    required this.controller,
     required this.shared,
     required this.review,
     required this.instagram,
     required this.facebook,
+    required this.dreams,
+    required this.rolesDream,
+    required this.dreamTeam,
+    required this.knowledge,
+    required this.languages,
+    required this.controller,
+    required this.skills,
+    required this.tools,
+    required this.hobbies,
   });
 
   @override
@@ -109,6 +125,8 @@ class OpenVideoScreen extends StatelessWidget {
                       if (instagram.isNotEmpty)
                         IconContainerTap(
                           icon: Iconsax.instagram_outline,
+                          child: GradientIcon(
+                              icon: Iconsax.instagram_outline, size: 18),
                           onTap: () async {
                             /*abre el perfil de isntgram */
                             await openUrlInstagram();
@@ -117,12 +135,85 @@ class OpenVideoScreen extends StatelessWidget {
                       if (facebook.isNotEmpty)
                         IconContainerTap(
                           icon: Iconsax.facebook_outline,
+                          child: GradientIcon(
+                              icon: Iconsax.facebook_outline, size: 18),
                           onTap: () async {
                             await openUrlFacebook();
                           },
                         ),
                     ],
                   ),
+
+                  //habilidades
+                  if (skills.isNotEmpty) SizedBox(height: size.height * .02),
+                  if (skills.isNotEmpty) _TitleComponent(title: 'Habilidades'),
+                  if (skills.isNotEmpty) _SubtitleComponent(subtitle: skills),
+                  //herramientas
+                  if (tools.isNotEmpty) SizedBox(height: size.height * .02),
+                  if (tools.isNotEmpty)
+                    _TitleComponent(title: 'Herramientas  '),
+                  if (tools.isNotEmpty) _SubtitleComponent(subtitle: tools),
+                  //leguajes
+                  if (languages.isNotEmpty) SizedBox(height: size.height * .02),
+                  if (languages.isNotEmpty) _TitleComponent(title: 'Lenguajes'),
+                  if (languages.isNotEmpty)
+                    _SubtitleComponent(subtitle: languages),
+
+                  if (dreams.isNotEmpty) SizedBox(height: size.height * .02),
+                  //sueños
+                  if (dreams.isNotEmpty)
+                    _TitleComponent(title: 'Marcas de sus sueños'),
+                  //descripcion
+                  if (dreams.isNotEmpty) _SubtitleComponent(subtitle: dreams),
+
+                  if (rolesDream.isNotEmpty)
+                    SizedBox(height: size.height * .02),
+                  //roles de ensueño
+                  if (rolesDream.isNotEmpty)
+                    _TitleComponent(title: 'Roles de ensueño'),
+                  if (rolesDream.isNotEmpty)
+                    _SubtitleComponent(subtitle: rolesDream),
+                  //equipo de ensueño
+                  if (dreamTeam.isNotEmpty) SizedBox(height: size.height * .02),
+                  if (dreamTeam.isNotEmpty)
+                    _TitleComponent(title: 'Equipo de ensueño'),
+                  if (dreamTeam.isNotEmpty)
+                    _SubtitleComponent(subtitle: dreamTeam),
+                  //conocimientos
+                  if (knowledge.isNotEmpty) SizedBox(height: size.height * .02),
+                  if (knowledge.isNotEmpty)
+                    _TitleComponent(title: 'Conocimientos'),
+                  if (knowledge.isNotEmpty)
+                    _SubtitleComponent(subtitle: knowledge),
+                  //tags
+                  if (hobbies.isNotEmpty) SizedBox(height: size.height * .02),
+                  if (hobbies.isNotEmpty)
+                    Wrap(
+                      alignment: WrapAlignment.start,
+                      crossAxisAlignment: WrapCrossAlignment.start,
+                      spacing: size.width * .03,
+                      runSpacing: size.height * .005,
+                      children: hobbies.map((hobby) {
+                        return Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * .03,
+                              vertical: size.height * .005),
+                          decoration: BoxDecoration(
+                            color: PaletteTheme.greyDark
+                                .withAlpha((0.2 * 255).toInt()),
+                            borderRadius: BorderRadius.circular(
+                                ButtonsTheme.borderRadius),
+                          ),
+                          child: GradientText(
+                            text: '#$hobby',
+                            gradient: LinearGradient(colors: [
+                              PaletteTheme.deepFucsia,
+                              PaletteTheme.orange
+                            ]),
+                          ),
+                        );
+                      }).toList(),
+                    ),
                 ],
               ))
             ],
@@ -155,8 +246,40 @@ class OpenVideoScreen extends StatelessWidget {
   }
 }
 
+class _SubtitleComponent extends StatelessWidget {
+  final String subtitle;
+  const _SubtitleComponent({required this.subtitle});
 
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      subtitle,
+      maxLines: 2,
+      overflow: TextOverflow.ellipsis,
+      textAlign: TextAlign.start,
+    );
+  }
+}
 
+class _TitleComponent extends StatelessWidget {
+  final String title;
+  const _TitleComponent({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      textAlign: TextAlign.start,
+      style: Theme.of(context)
+          .textTheme
+          .bodyMedium!
+          .copyWith(fontWeight: FontWeight.bold),
+    );
+  }
+}
+ 
 
 
 

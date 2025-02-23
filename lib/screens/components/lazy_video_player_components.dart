@@ -17,6 +17,14 @@ class LazyVideoPlayerComponents extends StatelessWidget {
   final String review;
   final String instagram;
   final String facebook;
+  final String dreams;
+  final String rolesDream;
+  final String dreamTeam;
+  final String knowledge;
+  final String languages;
+  final String skills;
+  final String tools;
+  final List<String> hobbies;
   const LazyVideoPlayerComponents({
     super.key,
     required this.videoUrl,
@@ -28,6 +36,14 @@ class LazyVideoPlayerComponents extends StatelessWidget {
     required this.review,
     required this.instagram,
     required this.facebook,
+    required this.dreams,
+    required this.rolesDream,
+    required this.dreamTeam,
+    required this.knowledge,
+    required this.languages,
+    required this.skills,
+    required this.tools,
+    required this.hobbies,
   });
 
   @override
@@ -69,6 +85,14 @@ class LazyVideoPlayerComponents extends StatelessWidget {
                               review: review,
                               facebook: facebook,
                               instagram: instagram,
+                              dreams: dreams,
+                              rolesDream: rolesDream,
+                              dreamTeam: dreamTeam,
+                              knowledge: knowledge,
+                              languages: languages,
+                              skills: skills,
+                              tools: tools,
+                              hobbies: hobbies,
                             ),
                           ),
                         );
