@@ -1,3 +1,5 @@
+export 'package:talent_pitch/controllers/providers/new_talents_provider.dart';
+export 'package:talent_pitch/models/new_talent_models.dart';
 export 'package:talent_pitch/models/most_viewed_portfolios_models.dart';
 export 'package:talent_pitch/controllers/providers/most_viewed_portfolios_provider.dart';
 export 'package:talent_pitch/controllers/services/open_url_social_services.dart';

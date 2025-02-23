@@ -10,6 +10,114 @@ import 'package:talent_pitch/controllers/exports/exports_screen.dart';
 COMPONENTES: componentes para el home, listas
 */
 
+/*
+nuevos talentos
+*/
+
+class NewTalentComponents extends StatelessWidget {
+  const NewTalentComponents({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Consumer<NewTalentsProvider>(
+      builder: (context, newTalent, child) {
+        if (newTalent.isLoading) {
+          return const SliverToBoxAdapter(
+            child: ListMostPortafolio(),
+          );
+        }
+        if (newTalent.errorMessage != null) {
+          return SliverToBoxAdapter(
+            child: Center(),
+          );
+        }
+        if (newTalent.talentModel.data.isEmpty) {
+          return const SliverToBoxAdapter(
+            child: Center(),
+          );
+        }
+        return SliverList.separated(
+          itemCount: newTalent.talentModel.data.length,
+          separatorBuilder: (context, index) =>
+              SizedBox(height: size.height * .02),
+          itemBuilder: (context, index) {
+            final data = newTalent.talentModel.data[index];
+            return InkWell(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PersonDetailsScreen(
+                    id: data.id,
+                    name: data.name,
+                    image: data.avatar,
+                    nickName: data.slug,
+                    shared: data.sharedCount,
+                    review: data.reviewCount,
+                    about: data.about,
+                    career: data.career,
+                    instagram: data.instagram,
+                    facebook: data.facebook,
+                    languages: data.languages.join(", "),
+                    tools: data.tools.join(", "),
+                    position: data.position,
+                    skills: data.skills.join(", "),
+                    knowledge: data.knowledge.join(", "),
+                    hobbies: data.hobbies,
+                    resumeImage: data.resumeImage,
+                    videoUrl: data.videoUrl,
+                  ),
+                ),
+              ),
+              child: Container(
+                height: size.height * .27,
+                width: size.width,
+                margin: EdgeInsets.symmetric(horizontal: size.width * .04),
+                padding: EdgeInsets.symmetric(horizontal: size.width * .025),
+                child: Column(
+                  spacing: size.height * .01,
+                  children: [
+                    //banner
+                    Stack(
+                      children: [
+                        Container(
+                          height: size.height * .2,
+                          width: size.width,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image:
+                                    NetworkImageComponent.getImageNetworkImage(
+                                        url: data.resumeImage)),
+                            borderRadius:
+                                BorderRadius.circular(ButtonsTheme.borderCards),
+                          ),
+                          child: IconBlurComponents(
+                            icon: Iconsax.play_outline,
+                          ),
+                          // child: ,
+                        ),
+                        BlurCategorieComponent(
+                            categorie: newTalent.talentModel.title),
+                      ],
+                    ),
+                    //informacion
+                    UserPhotoNameComponent(
+                      image: data.avatar,
+                      name: data.name,
+                      createdAt: data.createdAt,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
 /*talento destacado mas visto*/
 class TalentMostViewComponent extends StatelessWidget {
   const TalentMostViewComponent({super.key});

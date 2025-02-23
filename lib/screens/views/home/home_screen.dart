@@ -29,6 +29,8 @@ class HomeScreen extends StatelessWidget {
                 HightlightTalentComponents(),
                 /*talento destacado mas visto*/
                 TalentMostViewComponent(),
+                /*nuevos talentos*/
+                NewTalentComponents(),
               ],
             ),
           ),
