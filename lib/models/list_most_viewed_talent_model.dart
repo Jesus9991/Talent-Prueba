@@ -58,6 +58,11 @@ class Talent {
   final String createdAt;
   final int? compatibility;
   final String? compatibilityReason;
+  final String resumeName;
+  final int review;
+  final int shared;
+  final String facebook;
+  final String instagram;
 
   Talent({
     required this.id,
@@ -81,6 +86,11 @@ class Talent {
     required this.createdAt,
     this.compatibility,
     this.compatibilityReason,
+    required this.resumeName,
+    required this.review,
+    required this.shared,
+    required this.facebook,
+    required this.instagram,
   });
 
   factory Talent.fromJson(Map<String, dynamic> json) {
@@ -107,6 +117,11 @@ class Talent {
         createdAt: json['created_at'] ?? '',
         compatibility: json['compatibility'],
         compatibilityReason: json['compatibility_reason'],
+        resumeName: json['resume_name'] ?? '',
+        review: json['review_count'] ?? '',
+        shared: json['shared_count'] ?? '',
+        facebook: json['facebook'] ?? '',
+        instagram: json['instagram'] ?? '',
       );
     } catch (e) {
       throw Exception('Error parsing Talent: $e');

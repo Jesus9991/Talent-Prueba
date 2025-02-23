@@ -11,32 +11,27 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final size = MediaQuery.of(context).size;
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      extendBody: true,
-      body: Consumer<HomeDataProvider>(
-        builder: (context, feth, child) {
-          return GradientBackground(
-            child: FadeInComponent(
-              child: CustomScrollView(
-                physics: const BouncingScrollPhysics(),
-                keyboardDismissBehavior:
-                    ScrollViewKeyboardDismissBehavior.onDrag,
-                slivers: [
-                  /*appbar */
-                  AppbarHomeComponents(),
-                  /*categorias*/
-                  ListCategoriesHomeComponent(),
-                  /*lista de porfafolio*/
-                  ListPortfolioComponent(),
-                  /*talento descatado*/
-                  HightlightTalentComponents(),
-                ],
-              ),
+    return Consumer<HomeDataProvider>(
+      builder: (context, feth, child) {
+        return GradientBackground(
+          child: FadeInComponent(
+            child: CustomScrollView(
+              physics: const BouncingScrollPhysics(),
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              slivers: [
+                /*appbar */
+                AppbarHomeComponents(),
+                /*categorias*/
+                ListCategoriesHomeComponent(),
+                /*lista de porfafolio*/
+                ListPortfolioComponent(),
+                /*talento descatado*/
+                HightlightTalentComponents(),
+              ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

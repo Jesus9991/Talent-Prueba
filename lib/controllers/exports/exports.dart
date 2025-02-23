@@ -1,3 +1,5 @@
+export 'package:talent_pitch/screens/widgets/snackbar_widget.dart';
+export 'package:talent_pitch/screens/components/lazy_video_player_components.dart';
 export 'package:talent_pitch/controllers/providers/video_reproduction_provider.dart';
 export 'package:talent_pitch/models/list_most_viewed_talent_model.dart';
 export 'package:talent_pitch/controllers/providers/list_most_viewed_talent_provider.dart';

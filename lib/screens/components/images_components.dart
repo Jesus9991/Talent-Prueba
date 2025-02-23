@@ -10,12 +10,14 @@ class PhotoBorderGradientComponent extends StatelessWidget {
   final double? height;
   final double? width;
   final double? padding;
+  final BoxFit? fit;
   const PhotoBorderGradientComponent({
     super.key,
     required this.image,
     this.height,
     this.width,
     this.padding,
+    this.fit,
   });
 
   @override
@@ -39,7 +41,7 @@ class PhotoBorderGradientComponent extends StatelessWidget {
             color: PaletteTheme.categoryColors,
             shape: BoxShape.circle,
             image: DecorationImage(
-              fit: BoxFit.cover,
+              fit: fit ?? BoxFit.cover,
               image: NetworkImage(image),
             )),
       ),

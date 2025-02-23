@@ -102,13 +102,20 @@ class HightlightTalentComponents extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius:
                             BorderRadius.circular(ButtonsTheme.borderCards),
-                        color: PaletteTheme.categoryColors),
+                        color: PaletteTheme.cards),
                     child: ClipRRect(
                       borderRadius:
                           BorderRadius.circular(ButtonsTheme.borderCards),
-                      child: Image.network(
-                        'https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_907,q_75,w_1100/v1/clients/virginiabeachva/144_3_6076_jpeg_21f028b6-1ad7-4378-8808-e76b654d5065.jpg',
-                        fit: BoxFit.cover,
+                      child: LazyVideoPlayerComponents(
+                        videoUrl: data.videoUrl,
+                        image: view.talentModel.image,
+                        title: data.resumeName,
+                        userName: '@${data.slug}',
+                        avatar: data.avatar,
+                        review: data.review.toString(),
+                        shared: data.shared.toString(),
+                        facebook: data.facebook,
+                        instagram: data.instagram,
                       ),
                     ),
                   ),

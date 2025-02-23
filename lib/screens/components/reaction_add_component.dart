@@ -135,3 +135,83 @@ class ReactionNumber extends StatelessWidget {
     );
   }
 }
+
+class SharedNumbersComponent extends StatelessWidget {
+  final String number;
+  final IconData icon;
+  final double? height;
+  final double? weight;
+  const SharedNumbersComponent({
+    super.key,
+    required this.number,
+    required this.icon,
+    this.height,
+    this.weight,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Container(
+      height: height ?? size.height * .03,
+      width: weight ?? size.width * .18,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: PaletteTheme.categoryColors,
+        borderRadius: BorderRadius.circular(ButtonsTheme.borderRadius),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        spacing: size.width * .01,
+        children: [
+          Icon(icon, size: 15),
+          SizedBox(
+            width: size.width * .07,
+            child: Text(
+              number,
+              textAlign: TextAlign.start,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class IconContainerTap extends StatelessWidget {
+  final IconData icon;
+  final double? height;
+  final double? weight;
+  final Function onTap;
+  const IconContainerTap({
+    super.key,
+    required this.icon,
+    this.height,
+    this.weight,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return InkWell(
+      onTap: () => onTap(),
+      child: Container(
+        height: height ?? size.height * .03,
+        width: weight ?? size.width * .18,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: PaletteTheme.categoryColors,
+          borderRadius: BorderRadius.circular(ButtonsTheme.borderRadius),
+        ),
+        child: Center(child: Icon(icon, size: 15)),
+      ),
+    );
+  }
+}
