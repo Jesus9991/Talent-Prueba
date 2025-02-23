@@ -1,3 +1,6 @@
+export 'package:talent_pitch/controllers/providers/video_reproduction_provider.dart';
+export 'package:talent_pitch/models/list_most_viewed_talent_model.dart';
+export 'package:talent_pitch/controllers/providers/list_most_viewed_talent_provider.dart';
 export 'package:talent_pitch/screens/components/fade_in_animation_components.dart';
 export 'package:talent_pitch/controllers/providers/hightlight_persons_home_provider.dart';
 export 'package:talent_pitch/models/hightlight_persons_home.model.dart';
@@ -6,7 +9,7 @@ export 'package:talent_pitch/models/home_data_models.dart';
 export 'package:talent_pitch/controllers/providers/playlist_user_provider.dart';
 export 'package:talent_pitch/screens/components/tab_bar_component.dart';
 export 'package:talent_pitch/screens/components/images_components.dart';
-export 'package:talent_pitch/screens/components/icon_gradients_components.dart';
+export 'package:talent_pitch/screens/components/gradients_components.dart';
 export 'package:talent_pitch/controllers/providers/add_reaction_provider.dart';
 export 'package:talent_pitch/screens/components/reaction_add_component.dart';
 export 'package:talent_pitch/controllers/services/vibration_effect_service.dart';

@@ -3,13 +3,16 @@ modelo para obtener las personas destacadas en el home
 */
 class HightlightPersonHomeModels {
   final int count;
+  final String key;
   final List<HightlightData> data;
 
-  HightlightPersonHomeModels({required this.count, required this.data});
+  HightlightPersonHomeModels(
+      {required this.count, required this.data, required this.key});
 
   factory HightlightPersonHomeModels.fromJson(Map<String, dynamic> json) {
     try {
       return HightlightPersonHomeModels(
+        key: json['key'] ?? '',
         count: json['count'] ?? 0,
         data: (json['data'] as List?)
                 ?.map((item) => HightlightData.fromJson(item))

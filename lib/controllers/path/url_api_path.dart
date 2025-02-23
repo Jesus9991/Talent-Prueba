@@ -11,4 +11,7 @@ class PathApi {
   /*listas de destacdo en el home */
   static String hightlightPath =
       '/homeservice/categories/d/talentees/top_pitches/unique/null/';
+  /*mas vistos*/
+  static String mostViewed =
+      '/homeservice/categories/d/talentees/most_viewed_talent/video/null/';
 }

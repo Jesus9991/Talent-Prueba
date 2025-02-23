@@ -46,3 +46,23 @@ class PhotoBorderGradientComponent extends StatelessWidget {
     );
   }
 }
+
+/*
+clase para las imagenes de tipo NetworkImage */
+class NetworkImageComponent {
+  static ImageProvider getImageNetworkImage({
+    required String url,
+  }) {
+    if (url.isEmpty) {
+      return AssetImage(ImagesPath
+          .tlogoWhite); //si la URL está vacía, usa la imagen por defecto
+    }
+
+    try {
+      return NetworkImage(url);
+    } catch (_) {
+      return AssetImage(
+          ImagesPath.tlogoWhite); //si hay un error, usa la imagen local
+    }
+  }
+}

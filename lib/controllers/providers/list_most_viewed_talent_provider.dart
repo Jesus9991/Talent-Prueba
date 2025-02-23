@@ -7,19 +7,22 @@ import 'package:flutter/material.dart';
 import 'package:talent_pitch/controllers/exports/exports.dart';
 
 /*
-provider para las personas destacadas en el home
+lista de mejores publicaciones
 */
-class HightPersonsHomeProvider extends ChangeNotifier {
+class ListMostViewTalentProvider extends ChangeNotifier {
   /*inicia los datos al llamar al provider*/
-  HightPersonsHomeProvider() {
-    getListHightLight();
+  ListMostViewTalentProvider() {
+    getListMostViewTalent();
   }
 
   /*modelo de los datos*/
-  HightlightPersonHomeModels _personHomeModels = HightlightPersonHomeModels(
+  ListMostViewedTalentModel _talentModel = ListMostViewedTalentModel(
     count: 0,
-    key: 'top_pitches',
     data: [],
+    image: '',
+    key: 'most_viewed_talent',
+    modelData: '',
+    title: '',
   );
 
   bool _isLoading = false;
@@ -27,7 +30,7 @@ class HightPersonsHomeProvider extends ChangeNotifier {
   /*seteo de datos*/
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
-  HightlightPersonHomeModels get personHomeModels => _personHomeModels;
+  ListMostViewedTalentModel get talentModel => _talentModel;
 
   //seteo de datos
   setIsLoading(bool loading) {
@@ -40,12 +43,12 @@ class HightPersonsHomeProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //*PETICION PARA OBTENER LA LISTA DE DESTACADOS DEL HOME
-  Future getListHightLight() async {
+  //*PETICION PARA OBTENER LA LISTA DE MAS VISTOS DEL HOME
+  Future getListMostViewTalent() async {
     try {
       setIsLoading(true);
 
-      final url = Uri.parse('${UrlApiPath.urlHttp}${PathApi.hightlightPath}');
+      final url = Uri.parse('${UrlApiPath.urlHttp}${PathApi.mostViewed}');
       final response = await http.get(
         url,
         headers: {
@@ -61,8 +64,8 @@ class HightPersonsHomeProvider extends ChangeNotifier {
         /*verifica que la respuesta sea válida antes de parsear */
         if (data is Map<String, dynamic>) {
           /*llena los datos */
-          _personHomeModels = HightlightPersonHomeModels.fromJson(data);
-          log('getListHightLight id:  ${_personHomeModels.data[0].id}');
+          _talentModel = ListMostViewedTalentModel.fromJson(data);
+          log('getListMostViewTalent lenght  ${_talentModel.data.length}');
           /*cambio de estado */
           setErrorMessage(null);
         } else {
@@ -94,5 +97,4 @@ class HightPersonsHomeProvider extends ChangeNotifier {
       setIsLoading(false);
     }
   }
-  //!!!Todo: hacer peticion para el detalle de uno !
 }

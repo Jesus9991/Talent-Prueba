@@ -14,97 +14,147 @@ class HightlightTalentComponents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return SliverToBoxAdapter(
-        child: Container(
-      height: size.height * .42,
-      width: size.width,
-      // color: PaletteTheme.categoryColors,
-      margin: EdgeInsets.symmetric(horizontal: size.width * .04),
-      padding: EdgeInsets.symmetric(horizontal: size.width * .025),
-      child: Column(
-        spacing: size.height * .007,
-        children: [
-          /*informacion del usario*/
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            spacing: size.width * .02,
-            children: [
-              CircleAvatar(
-                backgroundColor: PaletteTheme.categoryColors,
-                backgroundImage: NetworkImage(
-                    'https://t3.ftcdn.net/jpg/11/17/84/58/360_F_1117845893_al1Yuw9YqxcxWsUz5XzhFQ4DOuimQodj.jpg'),
+    return Consumer<ListMostViewTalentProvider>(
+      builder: (context, view, child) {
+        if (view.isLoading) {
+          return const SliverToBoxAdapter(
+            child: ListShimmerMostView(),
+          );
+        }
+
+        if (view.errorMessage != null) {
+          return SliverToBoxAdapter(
+            child: Center(),
+          );
+        }
+
+        if (view.talentModel.data.isEmpty) {
+          return const SliverToBoxAdapter(
+            child: Center(),
+          );
+        }
+
+        return SliverList.separated(
+          itemCount: view.talentModel.data.length,
+          separatorBuilder: (context, index) =>
+              SizedBox(height: size.height * .04),
+          itemBuilder: (context, index) {
+            final data = view.talentModel.data[index];
+
+            return Container(
+              height: size.height * .52,
+              width: size.width,
+              // color: PaletteTheme.categoryColors,
+              margin: EdgeInsets.symmetric(horizontal: size.width * .04),
+              padding: EdgeInsets.symmetric(horizontal: size.width * .025),
+              child: Column(
+                spacing: size.height * .007,
+                children: [
+                  /*informacion del usario*/
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    spacing: size.width * .02,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: PaletteTheme.categoryColors,
+                        onBackgroundImageError: (exception, stackTrace) =>
+                            AssetImage(ImagesPath.tlogoWhite),
+                        backgroundImage:
+                            NetworkImageComponent.getImageNetworkImage(
+                                url: data.avatar),
+                      ),
+                      /*nombre del usuario*/
+                      SizedBox(
+                        width: size.width * .4,
+                        child: Text(
+                          data.name,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const Spacer(),
+                      SizedBox(
+                        width: size.width * .2,
+                        child: Text(
+                          data.createdAt,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.end,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(color: PaletteTheme.grey),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: size.height * .005),
+                  /*video reproduccion*/
+                  Container(
+                    height: size.height * .25,
+                    width: size.width,
+                    decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(ButtonsTheme.borderCards),
+                        color: PaletteTheme.categoryColors),
+                    child: ClipRRect(
+                      borderRadius:
+                          BorderRadius.circular(ButtonsTheme.borderCards),
+                      child: Image.network(
+                        'https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_907,q_75,w_1100/v1/clients/virginiabeachva/144_3_6076_jpeg_21f028b6-1ad7-4378-8808-e76b654d5065.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  /*reaccion del usuario*/
+                  Row(
+                    spacing: size.width * .02,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [ReactionNumber(), ReactionAddComponent()],
+                  ),
+                  SizedBox(height: size.height * .005),
+                  /*hastag*/
+                  if (data.hobbies.isNotEmpty)
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Wrap(
+                        alignment: WrapAlignment.start,
+                        spacing: size.width * .03,
+                        runSpacing: size.height * .005,
+                        children: data.hobbies.map((hobby) {
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * .03,
+                                vertical: size.height * .005),
+                            decoration: BoxDecoration(
+                              color: PaletteTheme.categoryColors
+                                  .withAlpha((0.2 * 255).toInt()),
+                              borderRadius: BorderRadius.circular(
+                                  ButtonsTheme.borderRadius),
+                            ),
+                            child: GradientText(text: '#$hobby'),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                ],
               ),
-              /*nombre del usuario*/
-              SizedBox(
-                width: size.width * .4,
-                child: Text(
-                  'USER.NAME LAST',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.start,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(fontWeight: FontWeight.bold),
-                ),
-              ),
-              const Spacer(),
-              SizedBox(
-                width: size.width * .2,
-                child: Text(
-                  'hace 2h',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.end,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall!
-                      .copyWith(color: PaletteTheme.grey),
-                ),
-              ),
-            ],
-          ),
-          /*descripcion*/
-          Text(
-            'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-            maxLines: 4,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.start,
-            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                color: PaletteTheme.grey, fontWeight: FontWeight.w200),
-          ),
-          SizedBox(height: size.height * .005),
-          /*video reproduccion*/
-          Container(
-            height: size.height * .25,
-            width: size.width,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(ButtonsTheme.borderCards),
-                color: PaletteTheme.categoryColors),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(ButtonsTheme.borderCards),
-              child: Image.network(
-                'https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_907,q_75,w_1100/v1/clients/virginiabeachva/144_3_6076_jpeg_21f028b6-1ad7-4378-8808-e76b654d5065.jpg',
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          /*reaccion del usuario*/
-          Row(
-            spacing: size.width * .02,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [ReactionNumber(), ReactionAddComponent()],
-          ),
-        ],
-      ),
-    ));
+            );
+          },
+        );
+      },
+    );
   }
 }
 
 /*lista de portafolios*/
-//Todo: conectar con backend(datos reales)
 class ListPortfolioComponent extends StatelessWidget {
   const ListPortfolioComponent({super.key});
 

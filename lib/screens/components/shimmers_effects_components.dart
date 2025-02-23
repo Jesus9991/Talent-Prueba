@@ -37,6 +37,45 @@ class ShimmerWidget extends StatelessWidget {
   }
 }
 
+class ListShimmerMostView extends StatelessWidget {
+  const ListShimmerMostView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Container(
+      height: size.height * .42,
+      width: size.width,
+      margin: EdgeInsets.symmetric(horizontal: size.width * .04),
+      padding: EdgeInsets.symmetric(horizontal: size.width * .025),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: size.height * .007,
+        children: [
+          Row(
+            spacing: size.width * .02,
+            children: [
+              ShimmerWidget(
+                width: size.width * 0.1,
+                height: size.width * 0.1,
+                isCircular: true,
+              ),
+              ShimmerWidget(width: size.width * .4, height: size.height * .03),
+              const Spacer(),
+              ShimmerWidget(width: size.width * .2, height: size.height * .03)
+            ],
+          ),
+          SizedBox(height: size.height * .005),
+          ShimmerWidget(width: size.width * .1, height: size.height * .04),
+          SizedBox(height: size.height * .005),
+          ShimmerWidget(width: size.width * .2, height: size.height * .2),
+          SizedBox(height: size.height * .01),
+        ],
+      ),
+    );
+  }
+}
+
 class ListShimmerHighlight extends StatelessWidget {
   const ListShimmerHighlight({super.key});
 
