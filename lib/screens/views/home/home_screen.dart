@@ -27,6 +27,8 @@ class HomeScreen extends StatelessWidget {
                 ListPortfolioComponent(),
                 /*talento descatado*/
                 HightlightTalentComponents(),
+                /*talento destacado mas visto*/
+                TalentMostViewComponent(),
               ],
             ),
           ),

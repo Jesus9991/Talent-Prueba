@@ -37,6 +37,31 @@ class ShimmerWidget extends StatelessWidget {
   }
 }
 
+class ListMostPortafolio extends StatelessWidget {
+  const ListMostPortafolio({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Container(
+      height: size.height * .42,
+      width: size.width,
+      margin: EdgeInsets.symmetric(horizontal: size.width * .04),
+      padding: EdgeInsets.symmetric(horizontal: size.width * .025),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        spacing: size.height * .007,
+        children: [
+          SizedBox(height: size.height * .005),
+          ShimmerWidget(width: size.width * .2, height: size.height * .2),
+          SizedBox(height: size.height * .005),
+          ShimmerWidget(width: size.width * .07, height: size.height * .04),
+        ],
+      ),
+    );
+  }
+}
+
 class ListShimmerMostView extends StatelessWidget {
   const ListShimmerMostView({super.key});
 

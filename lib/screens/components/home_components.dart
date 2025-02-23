@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_pitch/controllers/exports/exports.dart';
 import 'package:talent_pitch/controllers/exports/exports_screen.dart';
@@ -6,6 +9,111 @@ import 'package:talent_pitch/controllers/exports/exports_screen.dart';
 /*
 COMPONENTES: componentes para el home, listas
 */
+
+/*talento destacado mas visto*/
+class TalentMostViewComponent extends StatelessWidget {
+  const TalentMostViewComponent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Consumer<MostViewedPortfoliosProvider>(
+      builder: (context, porta, child) {
+        if (porta.isLoading) {
+          return const SliverToBoxAdapter(
+            child: ListMostPortafolio(),
+          );
+        }
+        if (porta.errorMessage != null) {
+          return SliverToBoxAdapter(
+            child: Center(),
+          );
+        }
+        if (porta.talentModel.data.isEmpty) {
+          return const SliverToBoxAdapter(
+            child: Center(),
+          );
+        }
+        return SliverList.separated(
+          itemCount: porta.talentModel.data.length,
+          separatorBuilder: (context, index) =>
+              SizedBox(height: size.height * .02),
+          itemBuilder: (context, index) {
+            final data = porta.talentModel.data[index];
+            return InkWell(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PersonDetailsScreen(
+                    id: data.id,
+                    name: data.name,
+                    image: data.avatar,
+                    nickName: data.slug,
+                    shared: data.sharedCount,
+                    review: data.reviewCount,
+                    about: data.about,
+                    career: data.career,
+                    instagram: data.instagram,
+                    facebook: data.facebook,
+                    languages: data.languages.join(", "),
+                    tools: data.tools.join(", "),
+                    position: data.position,
+                    skills: data.skills.join(", "),
+                    knowledge: data.knowledge.join(", "),
+                    hobbies: data.hobbies,
+                    resumeImage: data.resumeImage,
+                    videoUrl: data.videoUrl,
+                  ),
+                ),
+              ),
+              child: Container(
+                height: size.height * .27,
+                width: size.width,
+                margin: EdgeInsets.symmetric(horizontal: size.width * .04),
+                padding: EdgeInsets.symmetric(horizontal: size.width * .025),
+                child: Column(
+                  spacing: size.height * .01,
+                  children: [
+                    //banner
+                    Stack(
+                      children: [
+                        Container(
+                          height: size.height * .2,
+                          width: size.width,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image:
+                                    NetworkImageComponent.getImageNetworkImage(
+                                        url: data.resumeImage)),
+                            borderRadius:
+                                BorderRadius.circular(ButtonsTheme.borderCards),
+                          ),
+                          child: IconBlurComponents(
+                            icon: Iconsax.play_outline,
+                          ),
+                          // child: ,
+                        ),
+                        BlurCategorieComponent(
+                            categorie: porta.talentModel.title),
+                      ],
+                    ),
+                    //informacion
+                    UserPhotoNameComponent(
+                      image: data.avatar,
+                      name: data.name,
+                      createdAt: data.createdAt,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
 
 /*talento destacado */
 class HightlightTalentComponents extends StatelessWidget {
@@ -51,49 +159,10 @@ class HightlightTalentComponents extends StatelessWidget {
                 spacing: size.height * .007,
                 children: [
                   /*informacion del usario*/
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    spacing: size.width * .02,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: PaletteTheme.categoryColors,
-                        onBackgroundImageError: (exception, stackTrace) =>
-                            AssetImage(ImagesPath.tlogoWhite),
-                        backgroundImage:
-                            NetworkImageComponent.getImageNetworkImage(
-                                url: data.avatar),
-                      ),
-                      /*nombre del usuario*/
-                      SizedBox(
-                        width: size.width * .4,
-                        child: Text(
-                          data.name,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.start,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      const Spacer(),
-                      SizedBox(
-                        width: size.width * .2,
-                        child: Text(
-                          data.createdAt,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.end,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall!
-                              .copyWith(color: PaletteTheme.grey),
-                        ),
-                      ),
-                    ],
-                  ),
+                  UserPhotoNameComponent(
+                      image: data.avatar,
+                      name: data.name,
+                      createdAt: data.createdAt),
                   SizedBox(height: size.height * .005),
                   /*video reproduccion*/
                   Container(
@@ -106,24 +175,35 @@ class HightlightTalentComponents extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius:
                           BorderRadius.circular(ButtonsTheme.borderCards),
-                      child: LazyVideoPlayerComponents(
-                        videoUrl: data.videoUrl,
-                        image: view.talentModel.image,
-                        title: data.resumeName,
-                        userName: '@${data.slug}',
-                        avatar: data.avatar,
-                        review: data.review.toString(),
-                        shared: data.shared.toString(),
-                        facebook: data.facebook,
-                        instagram: data.instagram,
-                        dreams: data.dreamBrands.join(", "),
-                        rolesDream: data.dreamRoles.join(", "),
-                        dreamTeam: data.dreamTeam.join(", "),
-                        knowledge: data.knowledge.join(", "),
-                        languages: data.languages.join(", "),
-                        skills: data.skills.join(", "),
-                        tools: data.tools.join(", "),
-                        hobbies: data.hobbies,
+                      child: Stack(
+                        children: [
+                          SizedBox(
+                            height: size.height,
+                            width: size.width,
+                            child: LazyVideoPlayerComponents(
+                              videoUrl: data.videoUrl,
+                              image: view.talentModel.image,
+                              title: data.resumeName,
+                              userName: '@${data.slug}',
+                              avatar: data.avatar,
+                              review: data.review.toString(),
+                              shared: data.shared.toString(),
+                              facebook: data.facebook,
+                              instagram: data.instagram,
+                              dreams: data.dreamBrands.join(", "),
+                              rolesDream: data.dreamRoles.join(", "),
+                              dreamTeam: data.dreamTeam.join(", "),
+                              knowledge: data.knowledge.join(", "),
+                              languages: data.languages.join(", "),
+                              skills: data.skills.join(", "),
+                              tools: data.tools.join(", "),
+                              hobbies: data.hobbies,
+                            ),
+                          ),
+                          //categoria
+                          BlurCategorieComponent(
+                              categorie: view.talentModel.title)
+                        ],
                       ),
                     ),
                   ),
@@ -143,7 +223,7 @@ class HightlightTalentComponents extends StatelessWidget {
                         alignment: WrapAlignment.start,
                         spacing: size.width * .03,
                         runSpacing: size.height * .005,
-                        children: data.hobbies.map((hobby) {
+                        children: data.hobbies.take(4).map((hobby) {
                           return Container(
                             padding: EdgeInsets.symmetric(
                                 horizontal: size.width * .03,
@@ -154,7 +234,7 @@ class HightlightTalentComponents extends StatelessWidget {
                               borderRadius: BorderRadius.circular(
                                   ButtonsTheme.borderRadius),
                             ),
-                            child: GradientText(text: '#$hobby'),
+                            child: GradientText(text: '#$hobby', maxLines: 1),
                           );
                         }).toList(),
                       ),
@@ -289,7 +369,7 @@ class ListPortfolioComponent extends StatelessWidget {
 }
 
 /*lista de categorias */
-//Todo: conectar con backend(datos reales)
+
 class ListCategoriesHomeComponent extends StatelessWidget {
   const ListCategoriesHomeComponent({super.key});
 
@@ -358,17 +438,6 @@ class ListCategoriesHomeComponent extends StatelessWidget {
                             borderRadius: BorderRadius.circular(
                                 ButtonsTheme.borderRadius),
                             color: PaletteTheme.categoryColors,
-                            // gradient: LinearGradient(
-                            //   colors: category.selectCategory != index
-                            //       ? [
-                            //           PaletteTheme.blueViolet,
-                            //           PaletteTheme.redColor,
-                            //         ]
-                            //       : [
-                            //           PaletteTheme.categoryColors,
-                            //           PaletteTheme.categoryColors,
-                            //         ],
-                            // ),
                           ),
                           child: Center(
                             child: Text(
@@ -396,6 +465,112 @@ class ListCategoriesHomeComponent extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class UserPhotoNameComponent extends StatelessWidget {
+  final String image;
+  final String name;
+  final String createdAt;
+  const UserPhotoNameComponent({
+    super.key,
+    required this.image,
+    required this.name,
+    required this.createdAt,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return /*informacion del usario*/
+        Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      spacing: size.width * .02,
+      children: [
+        CircleAvatar(
+          backgroundColor: PaletteTheme.categoryColors,
+          onBackgroundImageError: (exception, stackTrace) =>
+              AssetImage(ImagesPath.tlogoWhite),
+          backgroundImage:
+              NetworkImageComponent.getImageNetworkImage(url: image),
+        ),
+        /*nombre del usuario*/
+        SizedBox(
+          width: size.width * .4,
+          child: Text(
+            name,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.start,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(fontWeight: FontWeight.bold),
+          ),
+        ),
+        const Spacer(),
+        SizedBox(
+          width: size.width * .2,
+          child: Text(
+            createdAt,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.end,
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall!
+                .copyWith(color: PaletteTheme.grey),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class BlurCategorieComponent extends StatelessWidget {
+  final String categorie;
+  final double? padding;
+  const BlurCategorieComponent({
+    super.key,
+    required this.categorie,
+    this.padding,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: padding ?? size.height * 0.01,
+        horizontal: padding ?? size.width * 0.02,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(size.width * 0.06),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
+          child: IntrinsicWidth(
+            child: Container(
+              height: size.height * 0.03,
+              padding: EdgeInsets.symmetric(
+                  horizontal: size.width * 0.02), // Espaciado dinámico
+              decoration: BoxDecoration(
+                color: PaletteTheme.principal.withAlpha((0.07 * 255).toInt()),
+                borderRadius: BorderRadius.circular(size.width * 0.06),
+              ),
+              child: Center(
+                child: Text(
+                  categorie,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -16,4 +16,7 @@ class PathApi {
       '/homeservice/categories/d/talentees/most_viewed_talent/video/null/';
 /*lista de categorias*/
   static String listCategories = '/homeservice/categories-static-home';
+  /*dtalento destacado mas visto */
+  static String portafoliMostView =
+      '/homeservice/categories/d/talentees/top_pitches_viewed/card_top/null/';
 }
