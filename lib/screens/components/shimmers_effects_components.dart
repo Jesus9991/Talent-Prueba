@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:talent_pitch/controllers/exports/exports.dart';
-import 'package:talent_pitch/controllers/theme/palette_color_theme.dart';
 
 /*
 efecto shimmer
