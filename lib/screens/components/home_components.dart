@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_pitch/controllers/exports/exports.dart';
+import 'package:talent_pitch/controllers/exports/exports_screen.dart';
 
 /*
 COMPONENTES: componentes para el home, listas
@@ -217,29 +218,64 @@ class ListPortfolioComponent extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final person = high.personHomeModels.data[index];
 
-                    return SizedBox(
-                      width: size.width * .2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          /*FOTO DE PERFIL*/
-                          PhotoBorderGradientComponent(image: person.avatar),
-                          SizedBox(height: size.height * .006),
-
-                          /*NOMBRE DE USUARIO*/
-                          Text(
-                            person.name.split(" ").first,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelSmall!
-                                .copyWith(fontSize: 10),
+                    return Consumer<VideoReproductionProvider>(
+                      builder: (context, video, child) {
+                        return SizedBox(
+                          width: size.width * .2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              /*FOTO DE PERFIL*/
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            PersonDetailsScreen(
+                                          id: person.id,
+                                          name: person.name,
+                                          image: person.avatar,
+                                          nickName: person.slug,
+                                          review: person.review,
+                                          shared: person.shared,
+                                          facebook: person.facebook,
+                                          instagram: person.instagram,
+                                          about: person.about,
+                                          career: person.career,
+                                          languages:
+                                              person.languages.join(", "),
+                                          position: person.position,
+                                          skills: person.skills.join(", "),
+                                          tools: person.tools.join(", "),
+                                          knowledge:
+                                              person.knowledge.join(", "),
+                                          hobbies: person.hobbies,
+                                          resumeImage: person.resumeimage,
+                                          videoUrl: person.videoUrl,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: PhotoBorderGradientComponent(
+                                      image: person.avatar)),
+                              SizedBox(height: size.height * .006),
+                              /*NOMBRE DE USUARIO*/
+                              Text(
+                                person.name.split(" ").first,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelSmall!
+                                    .copyWith(fontSize: 10),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        );
+                      },
                     );
                   },
                 );

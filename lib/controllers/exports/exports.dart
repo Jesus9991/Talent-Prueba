@@ -1,3 +1,5 @@
+export 'package:talent_pitch/controllers/services/open_url_social_services.dart';
+export 'package:talent_pitch/screens/components/person_details_components.dart';
 export 'package:talent_pitch/models/categories_home_model.dart';
 export 'package:talent_pitch/controllers/providers/video_control_provider.dart';
 export 'package:talent_pitch/screens/widgets/snackbar_widget.dart';

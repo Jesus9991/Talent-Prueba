@@ -49,6 +49,7 @@ class LazyVideoPlayerComponents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final videoProvider = Provider.of<VideoReproductionProvider>(context);
+    final size = MediaQuery.of(context).size;
     final isiOS = Platform.isIOS;
     return VisibilityDetector(
       key: Key(videoUrl ?? 'no_video'),
@@ -107,7 +108,28 @@ class LazyVideoPlayerComponents extends StatelessWidget {
                     },
                     child: AspectRatio(
                       aspectRatio: controller.value.aspectRatio,
-                      child: VideoPlayer(controller),
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          VideoPlayer(controller),
+                          /*linea de progreso */
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * .02,
+                                vertical: size.height * .01),
+                            child: VideoProgressIndicator(
+                              controller,
+                              allowScrubbing: true,
+                              colors: VideoProgressColors(
+                                  playedColor: PaletteTheme.principal,
+                                  backgroundColor: PaletteTheme.principal
+                                      .withAlpha((0.2 * 255).toInt()),
+                                  bufferedColor: PaletteTheme.principal
+                                      .withAlpha((0.3 * 255).toInt())),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 } else {

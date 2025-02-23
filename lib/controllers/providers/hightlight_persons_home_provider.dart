@@ -20,6 +20,7 @@ class HightPersonsHomeProvider extends ChangeNotifier {
     count: 0,
     key: 'top_pitches',
     data: [],
+    title: '',
   );
 
   bool _isLoading = false;
