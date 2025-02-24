@@ -6,7 +6,7 @@ class MostViewedPortfoliosModels {
   final int count;
   final List<Portfolio> data;
   final String image;
-  final String key;
+  String key;
   final String modelData;
   final String title;
 

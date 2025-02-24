@@ -67,6 +67,8 @@ class MostViewedPortfoliosProvider extends ChangeNotifier {
           /*llena los datos */
           _portafolioModel = MostViewedPortfoliosModels.fromJson(data);
           log('getListMostViewTalent lenght  ${_portafolioModel.data.length}');
+          _portafolioModel.key = 'trending.${_portafolioModel.key}';
+
           /*cambio de estado */
           setErrorMessage(null);
         } else {

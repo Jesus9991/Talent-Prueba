@@ -5,7 +5,7 @@ class NewTalentModels {
   final int count;
   final List<TalentData> data;
   final String image;
-  final String key;
+  String key;
   final String modelData;
   final String title;
 

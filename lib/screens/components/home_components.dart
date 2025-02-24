@@ -69,45 +69,47 @@ class NewTalentComponents extends StatelessWidget {
                   ),
                 ),
               ),
-              child: Container(
-                height: size.height * .27,
-                width: size.width,
-                margin: EdgeInsets.symmetric(horizontal: size.width * .04),
-                padding: EdgeInsets.symmetric(horizontal: size.width * .025),
-                child: Column(
-                  spacing: size.height * .01,
-                  children: [
-                    //banner
-                    Stack(
-                      children: [
-                        Container(
-                          height: size.height * .2,
-                          width: size.width,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image:
-                                    NetworkImageComponent.getImageNetworkImage(
-                                        url: data.resumeImage)),
-                            borderRadius:
-                                BorderRadius.circular(ButtonsTheme.borderCards),
+              child: FadeInComponent(
+                child: Container(
+                  height: size.height * .27,
+                  width: size.width,
+                  margin: EdgeInsets.symmetric(horizontal: size.width * .04),
+                  padding: EdgeInsets.symmetric(horizontal: size.width * .025),
+                  child: Column(
+                    spacing: size.height * .01,
+                    children: [
+                      //banner
+                      Stack(
+                        children: [
+                          Container(
+                            height: size.height * .2,
+                            width: size.width,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImageComponent
+                                      .getImageNetworkImage(
+                                          url: data.resumeImage)),
+                              borderRadius: BorderRadius.circular(
+                                  ButtonsTheme.borderCards),
+                            ),
+                            child: IconBlurComponents(
+                              icon: Iconsax.play_outline,
+                            ),
+                            // child: ,
                           ),
-                          child: IconBlurComponents(
-                            icon: Iconsax.play_outline,
-                          ),
-                          // child: ,
-                        ),
-                        BlurCategorieComponent(
-                            categorie: newTalent.talentModel.title),
-                      ],
-                    ),
-                    //informacion
-                    UserPhotoNameComponent(
-                      image: data.avatar,
-                      name: data.name,
-                      createdAt: data.createdAt,
-                    ),
-                  ],
+                          BlurCategorieComponent(
+                              categorie: newTalent.talentModel.title),
+                        ],
+                      ),
+                      //informacion
+                      UserPhotoNameComponent(
+                        image: data.avatar,
+                        name: data.name,
+                        createdAt: data.createdAt,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -174,45 +176,47 @@ class TalentMostViewComponent extends StatelessWidget {
                   ),
                 ),
               ),
-              child: Container(
-                height: size.height * .27,
-                width: size.width,
-                margin: EdgeInsets.symmetric(horizontal: size.width * .04),
-                padding: EdgeInsets.symmetric(horizontal: size.width * .025),
-                child: Column(
-                  spacing: size.height * .01,
-                  children: [
-                    //banner
-                    Stack(
-                      children: [
-                        Container(
-                          height: size.height * .2,
-                          width: size.width,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image:
-                                    NetworkImageComponent.getImageNetworkImage(
-                                        url: data.resumeImage)),
-                            borderRadius:
-                                BorderRadius.circular(ButtonsTheme.borderCards),
+              child: FadeInComponent(
+                child: Container(
+                  height: size.height * .27,
+                  width: size.width,
+                  margin: EdgeInsets.symmetric(horizontal: size.width * .04),
+                  padding: EdgeInsets.symmetric(horizontal: size.width * .025),
+                  child: Column(
+                    spacing: size.height * .01,
+                    children: [
+                      //banner
+                      Stack(
+                        children: [
+                          Container(
+                            height: size.height * .2,
+                            width: size.width,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImageComponent
+                                      .getImageNetworkImage(
+                                          url: data.resumeImage)),
+                              borderRadius: BorderRadius.circular(
+                                  ButtonsTheme.borderCards),
+                            ),
+                            child: IconBlurComponents(
+                              icon: Iconsax.play_outline,
+                            ),
+                            // child: ,
                           ),
-                          child: IconBlurComponents(
-                            icon: Iconsax.play_outline,
-                          ),
-                          // child: ,
-                        ),
-                        BlurCategorieComponent(
-                            categorie: porta.talentModel.title),
-                      ],
-                    ),
-                    //informacion
-                    UserPhotoNameComponent(
-                      image: data.avatar,
-                      name: data.name,
-                      createdAt: data.createdAt,
-                    ),
-                  ],
+                          BlurCategorieComponent(
+                              categorie: porta.talentModel.title),
+                        ],
+                      ),
+                      //informacion
+                      UserPhotoNameComponent(
+                        image: data.avatar,
+                        name: data.name,
+                        createdAt: data.createdAt,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -257,97 +261,99 @@ class HightlightTalentComponents extends StatelessWidget {
           itemBuilder: (context, index) {
             final data = view.talentModel.data[index];
 
-            return Container(
-              height: size.height * .52,
-              width: size.width,
-              // color: PaletteTheme.categoryColors,
-              margin: EdgeInsets.symmetric(horizontal: size.width * .04),
-              padding: EdgeInsets.symmetric(horizontal: size.width * .025),
-              child: Column(
-                spacing: size.height * .007,
-                children: [
-                  /*informacion del usario*/
-                  UserPhotoNameComponent(
-                      image: data.avatar,
-                      name: data.name,
-                      createdAt: data.createdAt),
-                  SizedBox(height: size.height * .005),
-                  /*video reproduccion*/
-                  Container(
-                    height: size.height * .25,
-                    width: size.width,
-                    decoration: BoxDecoration(
+            return FadeInComponent(
+              child: Container(
+                height: size.height * .52,
+                width: size.width,
+                // color: PaletteTheme.categoryColors,
+                margin: EdgeInsets.symmetric(horizontal: size.width * .04),
+                padding: EdgeInsets.symmetric(horizontal: size.width * .025),
+                child: Column(
+                  spacing: size.height * .007,
+                  children: [
+                    /*informacion del usario*/
+                    UserPhotoNameComponent(
+                        image: data.avatar,
+                        name: data.name,
+                        createdAt: data.createdAt),
+                    SizedBox(height: size.height * .005),
+                    /*video reproduccion*/
+                    Container(
+                      height: size.height * .25,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(ButtonsTheme.borderCards),
+                          color: PaletteTheme.cards),
+                      child: ClipRRect(
                         borderRadius:
                             BorderRadius.circular(ButtonsTheme.borderCards),
-                        color: PaletteTheme.cards),
-                    child: ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(ButtonsTheme.borderCards),
-                      child: Stack(
-                        children: [
-                          SizedBox(
-                            height: size.height,
-                            width: size.width,
-                            child: LazyVideoPlayerComponents(
-                              videoUrl: data.videoUrl,
-                              image: view.talentModel.image,
-                              title: data.resumeName,
-                              userName: '@${data.slug}',
-                              avatar: data.avatar,
-                              review: data.review.toString(),
-                              shared: data.shared.toString(),
-                              facebook: data.facebook,
-                              instagram: data.instagram,
-                              dreams: data.dreamBrands.join(", "),
-                              rolesDream: data.dreamRoles.join(", "),
-                              dreamTeam: data.dreamTeam.join(", "),
-                              knowledge: data.knowledge.join(", "),
-                              languages: data.languages.join(", "),
-                              skills: data.skills.join(", "),
-                              tools: data.tools.join(", "),
-                              hobbies: data.hobbies,
+                        child: Stack(
+                          children: [
+                            SizedBox(
+                              height: size.height,
+                              width: size.width,
+                              child: LazyVideoPlayerComponents(
+                                videoUrl: data.videoUrl,
+                                image: view.talentModel.image,
+                                title: data.resumeName,
+                                userName: '@${data.slug}',
+                                avatar: data.avatar,
+                                review: data.review.toString(),
+                                shared: data.shared.toString(),
+                                facebook: data.facebook,
+                                instagram: data.instagram,
+                                dreams: data.dreamBrands.join(", "),
+                                rolesDream: data.dreamRoles.join(", "),
+                                dreamTeam: data.dreamTeam.join(", "),
+                                knowledge: data.knowledge.join(", "),
+                                languages: data.languages.join(", "),
+                                skills: data.skills.join(", "),
+                                tools: data.tools.join(", "),
+                                hobbies: data.hobbies,
+                              ),
                             ),
-                          ),
-                          //categoria
-                          BlurCategorieComponent(
-                              categorie: view.talentModel.title)
-                        ],
+                            //categoria
+                            BlurCategorieComponent(
+                                categorie: view.talentModel.title)
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  /*reaccion del usuario*/
-                  Row(
-                    spacing: size.width * .02,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [ReactionNumber(), ReactionAddComponent()],
-                  ),
-                  SizedBox(height: size.height * .005),
-                  /*hastag*/
-                  if (data.hobbies.isNotEmpty)
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Wrap(
-                        alignment: WrapAlignment.start,
-                        spacing: size.width * .03,
-                        runSpacing: size.height * .005,
-                        children: data.hobbies.take(4).map((hobby) {
-                          return Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * .03,
-                                vertical: size.height * .005),
-                            decoration: BoxDecoration(
-                              color: PaletteTheme.categoryColors
-                                  .withAlpha((0.2 * 255).toInt()),
-                              borderRadius: BorderRadius.circular(
-                                  ButtonsTheme.borderRadius),
-                            ),
-                            child: GradientText(text: '#$hobby', maxLines: 1),
-                          );
-                        }).toList(),
-                      ),
+                    /*reaccion del usuario*/
+                    Row(
+                      spacing: size.width * .02,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [ReactionNumber(), ReactionAddComponent()],
                     ),
-                ],
+                    SizedBox(height: size.height * .005),
+                    /*hastag*/
+                    if (data.hobbies.isNotEmpty)
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Wrap(
+                          alignment: WrapAlignment.start,
+                          spacing: size.width * .03,
+                          runSpacing: size.height * .005,
+                          children: data.hobbies.take(4).map((hobby) {
+                            return Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: size.width * .03,
+                                  vertical: size.height * .005),
+                              decoration: BoxDecoration(
+                                color: PaletteTheme.categoryColors
+                                    .withAlpha((0.2 * 255).toInt()),
+                                borderRadius: BorderRadius.circular(
+                                    ButtonsTheme.borderRadius),
+                              ),
+                              child: GradientText(text: '#$hobby', maxLines: 1),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                  ],
+                ),
               ),
             );
           },
@@ -408,59 +414,61 @@ class ListPortfolioComponent extends StatelessWidget {
 
                     return Consumer<VideoReproductionProvider>(
                       builder: (context, video, child) {
-                        return SizedBox(
-                          width: size.width * .2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              /*FOTO DE PERFIL*/
-                              InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            PersonDetailsScreen(
-                                          id: person.id,
-                                          name: person.name,
-                                          image: person.avatar,
-                                          nickName: person.slug,
-                                          review: person.review,
-                                          shared: person.shared,
-                                          facebook: person.facebook,
-                                          instagram: person.instagram,
-                                          about: person.about,
-                                          career: person.career,
-                                          languages:
-                                              person.languages.join(", "),
-                                          position: person.position,
-                                          skills: person.skills.join(", "),
-                                          tools: person.tools.join(", "),
-                                          knowledge:
-                                              person.knowledge.join(", "),
-                                          hobbies: person.hobbies,
-                                          resumeImage: person.resumeimage,
-                                          videoUrl: person.videoUrl,
+                        return FadeInComponent(
+                          child: SizedBox(
+                            width: size.width * .2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                /*FOTO DE PERFIL*/
+                                InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              PersonDetailsScreen(
+                                            id: person.id,
+                                            name: person.name,
+                                            image: person.avatar,
+                                            nickName: person.slug,
+                                            review: person.review,
+                                            shared: person.shared,
+                                            facebook: person.facebook,
+                                            instagram: person.instagram,
+                                            about: person.about,
+                                            career: person.career,
+                                            languages:
+                                                person.languages.join(", "),
+                                            position: person.position,
+                                            skills: person.skills.join(", "),
+                                            tools: person.tools.join(", "),
+                                            knowledge:
+                                                person.knowledge.join(", "),
+                                            hobbies: person.hobbies,
+                                            resumeImage: person.resumeimage,
+                                            videoUrl: person.videoUrl,
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                  child: PhotoBorderGradientComponent(
-                                      image: person.avatar)),
-                              SizedBox(height: size.height * .006),
-                              /*NOMBRE DE USUARIO*/
-                              Text(
-                                person.name.split(" ").first,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall!
-                                    .copyWith(fontSize: 10),
-                              ),
-                            ],
+                                      );
+                                    },
+                                    child: PhotoBorderGradientComponent(
+                                        image: person.avatar)),
+                                SizedBox(height: size.height * .006),
+                                /*NOMBRE DE USUARIO*/
+                                Text(
+                                  person.name.split(" ").first,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall!
+                                      .copyWith(fontSize: 10),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },
@@ -484,6 +492,7 @@ class ListCategoriesHomeComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Consumer<CategoriesListProvider>(
       builder: (context, category, child) {
         if (category.isLoading) {
@@ -493,7 +502,7 @@ class ListCategoriesHomeComponent extends StatelessWidget {
         }
 
         if (category.errorMessage != null) {
-          return SliverToBoxAdapter(
+          return const SliverToBoxAdapter(
             child: Center(),
           );
         }
@@ -512,7 +521,8 @@ class ListCategoriesHomeComponent extends StatelessWidget {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 return ListView.separated(
-                  itemCount: category.categories.data.length,
+                  itemCount: category.categories.data.length +
+                      1, // +1 para "Ver todas"
                   padding: EdgeInsets.only(left: size.width * .04),
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
@@ -521,35 +531,57 @@ class ListCategoriesHomeComponent extends StatelessWidget {
                   separatorBuilder: (context, index) =>
                       SizedBox(width: size.width * .03),
                   itemBuilder: (context, index) {
-                    final data = category.categories.data[index];
+                    final isAllCategories = index == 0;
+
                     return InkWell(
                       onTap: () async {
-                        /*selecciona la categoria */
-                        category.setSelectCategory(index);
-                        /*efecto de vibracion */
-                        await VibrationEffectService().vibrationEffect();
+                        if (isAllCategories) {
+                          category.setisTapCategory(false);
+                          category.setSelectCategory(-1, '');
+                        } else {
+                          final data = category.categories.data[index - 1];
+                          category.setisTapCategory(true);
+                          category.setSelectCategory(index, data.key);
+                        }
 
-                        //Todo: debe hacer la peticion o filtro para mostrar por categoria
+                        await VibrationEffectService().vibrationEffect();
                       },
                       child: IntrinsicWidth(
                         child: Container(
                           padding: EdgeInsets.symmetric(
                               horizontal: size.width * 0.04, vertical: 8),
                           decoration: BoxDecoration(
-                            image: category.selectCategory == index
+                            borderRadius: BorderRadius.circular(
+                                ButtonsTheme.borderRadius),
+                            gradient: LinearGradient(
+                              colors: isAllCategories &&
+                                      category.selectCategory == -1
+                                  ? [
+                                      PaletteTheme.blueViolet,
+                                      PaletteTheme.redColor,
+                                    ]
+                                  : [
+                                      PaletteTheme.categoryColors,
+                                      PaletteTheme.categoryColors,
+                                    ],
+                            ),
+                            image: !isAllCategories &&
+                                    category.isTapCategory &&
+                                    category.selectCategory == index
                                 ? DecorationImage(
                                     fit: BoxFit.cover,
                                     onError: (exception, stackTrace) =>
                                         AssetImage(ImagesPath.bannerBlack),
-                                    image: NetworkImage(data.image))
+                                    image: NetworkImage(category
+                                        .categories.data[index - 1].image),
+                                  )
                                 : null,
-                            borderRadius: BorderRadius.circular(
-                                ButtonsTheme.borderRadius),
-                            color: PaletteTheme.categoryColors,
                           ),
                           child: Center(
                             child: Text(
-                              data.title,
+                              isAllCategories
+                                  ? "Ver todas"
+                                  : category.categories.data[index - 1].title,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
@@ -557,7 +589,12 @@ class ListCategoriesHomeComponent extends StatelessWidget {
                                   .textTheme
                                   .headlineMedium!
                                   .copyWith(
-                                    fontWeight: category.selectCategory == index
+                                    fontWeight: (isAllCategories &&
+                                                category.selectCategory ==
+                                                    -1) ||
+                                            (!isAllCategories &&
+                                                category.selectCategory ==
+                                                    index)
                                         ? FontWeight.bold
                                         : FontWeight.w100,
                                   ),

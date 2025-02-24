@@ -18,7 +18,7 @@ class HightPersonsHomeProvider extends ChangeNotifier {
   /*modelo de los datos*/
   HightlightPersonHomeModels _personHomeModels = HightlightPersonHomeModels(
     count: 0,
-    key: 'top_pitches',
+    key: 'trending.top_pitches',
     data: [],
     title: '',
   );
@@ -64,6 +64,7 @@ class HightPersonsHomeProvider extends ChangeNotifier {
           /*llena los datos */
           _personHomeModels = HightlightPersonHomeModels.fromJson(data);
           log('getListHightLight id:  ${_personHomeModels.data[0].id}');
+          _personHomeModels.key = 'trending.${_personHomeModels.key}';
           /*cambio de estado */
           setErrorMessage(null);
         } else {

@@ -66,6 +66,8 @@ class ListMostViewTalentProvider extends ChangeNotifier {
           /*llena los datos */
           _talentModel = ListMostViewedTalentModel.fromJson(data);
           log('getListMostViewTalent lenght  ${_talentModel.data.length}');
+          _talentModel.key = 'trending.${_talentModel.key}';
+
           /*cambio de estado */
           setErrorMessage(null);
         } else {

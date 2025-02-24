@@ -65,7 +65,10 @@ class NewTalentsProvider extends ChangeNotifier {
         if (data is Map<String, dynamic>) {
           /*llena los datos */
           _talentModel = NewTalentModels.fromJson(data);
-          log('getListMostViewTalent lenght  ${_talentModel.data.length}');
+          _talentModel.key = 'trending.${_talentModel.key}';
+
+          log('getListMostViewTalent lenght: ${_talentModel.key}');
+
           /*cambio de estado */
           setErrorMessage(null);
         } else {

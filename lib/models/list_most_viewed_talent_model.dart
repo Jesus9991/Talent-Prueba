@@ -5,7 +5,7 @@ class ListMostViewedTalentModel {
   final int count;
   final List<Talent> data;
   final String image;
-  final String key;
+  String key;
   final String modelData;
   final String title;
 

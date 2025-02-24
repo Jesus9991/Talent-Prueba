@@ -3,7 +3,7 @@ modelo para obtener las personas destacadas en el home
 */
 class HightlightPersonHomeModels {
   final int count;
-  final String key;
+  String key;
   final String title;
   final List<HightlightData> data;
 

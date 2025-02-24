@@ -1,3 +1,4 @@
+export 'package:talent_pitch/screens/components/empty_state_components.dart';
 export 'package:talent_pitch/controllers/providers/new_talents_provider.dart';
 export 'package:talent_pitch/models/new_talent_models.dart';
 export 'package:talent_pitch/models/most_viewed_portfolios_models.dart';

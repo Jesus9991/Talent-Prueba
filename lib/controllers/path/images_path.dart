@@ -9,4 +9,6 @@ class ImagesPath {
 
   static String bannerBlack = 'assets/img/bannerBlack.png';
   static String bannerWhite = 'assets/img/bannerWhite.png';
+
+  static String emptyState = 'assets/img/emptyState.png';
 }

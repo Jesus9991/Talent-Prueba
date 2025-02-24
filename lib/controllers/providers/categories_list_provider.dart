@@ -18,22 +18,26 @@ class CategoriesListProvider extends ChangeNotifier {
     page: 1,
   );
 
-  /*selecciona la categoria*/
-  int _selectCategory = 0;
-  int get selectCategory => _selectCategory;
-
   bool _isLoading = false;
   String? _errorMessage;
+  /*selecciona la categoria*/
+  int _selectCategory = 0;
+  bool _isTapCategory = false;
+  String _categorySelected = '';
+
+  /*seteo de datos de categorias*/
+  int get selectCategory => _selectCategory;
+  bool get isTapCategory => _isTapCategory;
+  String get categorySelected => _categorySelected;
+
+  bool get isLoading => _isLoading;
+  String? get errorMessage => _errorMessage;
+  CategoriesHomeModel get categories => _categories;
 
   /*carga las listas de categorias al modelo */
   CategoriesListProvider() {
     getFetchCategories();
   }
-
-  /*seteo de datos*/
-  bool get isLoading => _isLoading;
-  String? get errorMessage => _errorMessage;
-  CategoriesHomeModel get categories => _categories;
 
   //seteo de datos
   setIsLoading(bool loading) {
@@ -46,8 +50,33 @@ class CategoriesListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  setSelectCategory(int index) {
-    _selectCategory = index; //selecciona la categoria
+  setSelectCategory(int? index, [String keyCategorie = '']) {
+    if (index == -1) {
+      // cuando selecciona "Ver todas"
+      _selectCategory = -1;
+      _categorySelected = '';
+      _isTapCategory = false; // einiciar estado de selección
+    } else {
+      if (_selectCategory == index) {
+        // Si la categoría ya estaba seleccionada, vuelve a "Ver todas"
+        _selectCategory = -1;
+        _categorySelected = '';
+        _isTapCategory = false;
+      } else {
+        // Seleccionar una categoría específica
+        _selectCategory = index ?? -1;
+        _categorySelected = keyCategorie;
+        _isTapCategory = true;
+      }
+    }
+
+    log('setSelectCategory: $_selectCategory y key: $_categorySelected');
+    notifyListeners();
+  }
+
+  setisTapCategory(bool isSelect) {
+    _isTapCategory =
+        isSelect; //para saber si el usuario selecciono una categoria
     notifyListeners();
   }
 
