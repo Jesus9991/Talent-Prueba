@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:talent_pitch/controllers/exports/exports.dart';
 
@@ -17,7 +15,7 @@ class SavePlaylistProvider extends ChangeNotifier {
   List<PortfolioForVideosModels> get savedVideos =>
       List.unmodifiable(_savedVideos);
 
-  final Set<int> _saveVideoIds = {}; // guarda los IDs en memoria.
+  Set<int> _saveVideoIds = {}; // guarda los IDs en memoria.
   Set<int> get saveVideoIds => _saveVideoIds;
 
   bool _isloading = false;
@@ -85,7 +83,8 @@ class SavePlaylistProvider extends ChangeNotifier {
     final data = await _dbService.getPortfolios();
     _savedVideos =
         data.map((e) => PortfolioForVideosModels.fromJson(e)).toList();
-    log('·_savedVideos $_savedVideos');
+    _saveVideoIds = _savedVideos.map((e) => e.id).toSet();
+
     setLoading(false);
 
     notifyListeners();

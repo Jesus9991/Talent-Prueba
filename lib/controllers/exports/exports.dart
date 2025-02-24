@@ -1,3 +1,6 @@
+export 'package:talent_pitch/screens/components/inputs_components.dart';
+export 'package:talent_pitch/screens/components/custom_button_componente.dart';
+export 'package:talent_pitch/screens/widgets/modal_app_widget.dart';
 export 'package:talent_pitch/controllers/providers/save_playlist_provider.dart';
 export 'package:talent_pitch/controllers/services/sql/save_video_sql_services.dart';
 export 'package:talent_pitch/models/playlist_models.dart';

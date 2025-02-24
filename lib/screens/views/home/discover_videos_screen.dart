@@ -107,6 +107,7 @@ class _PageViewComponent extends StatelessWidget {
                     shared: data.matchesCount.toString(),
                     review: data.reviewCount.toString(),
                     video: data.videoUrl,
+                    index: index,
                   ),
                 ],
               ),
@@ -120,6 +121,7 @@ class _PageViewComponent extends StatelessWidget {
 
 class _DetailsComponents extends StatelessWidget {
   final int id;
+  final int index;
   final String name;
   final String nickName;
   final String imagen;
@@ -139,11 +141,13 @@ class _DetailsComponents extends StatelessWidget {
     required this.about,
     required this.shared,
     required this.review,
+    required this.index,
   });
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final disc = Provider.of<DiscoverVideosProvider>(context);
 
     return Consumer<SavePlaylistProvider>(
       builder: (context, play, child) {
@@ -184,17 +188,22 @@ class _DetailsComponents extends StatelessWidget {
                       //
                       IconBlurComponents(icon: Iconsax.send_2_outline),
                       _TextComponent(title: shared),
-                      SizedBox(height: size.height * .01),
+                      SizedBox(height: size.height * .02),
                       //
-                      IconBlurComponents(icon: Iconsax.message_2_outline),
-                      _TextComponent(title: review),
-                      SizedBox(height: size.height * .01),
+
                       //añadir a favoritos
                       CircleButtonsComponent(
                         icon: play.isSaveVideo(id)
                             ? Iconsax.archive_minus_bold
                             : Iconsax.archive_add_outline,
                         onTap: () async {
+                          ModalSheetWidget.showSelectTwoOption(
+                              context: context,
+                              videoId: id,
+                              onCancel: () {
+                                Navigator.pop(context);
+                                disc.playVideo(index);
+                              });
                           await play.saveForVideo(
                             id: id,
                             name: name,
@@ -202,7 +211,7 @@ class _DetailsComponents extends StatelessWidget {
                             avatar: imagen,
                             video: video,
                           );
-
+                          disc.pauseVideo(index);
                           await VibrationEffectService().vibrationEffect();
 
                           await play.loadSavedVideos();

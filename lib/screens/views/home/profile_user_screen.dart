@@ -25,9 +25,81 @@ class ProfileUserScreen extends StatelessWidget {
           /*tap bar */
           TabBarComponent(),
           /*lista de todas los videos guardados*/
-          if (tapPrv.selectTabBar == 0) _AllSavedVideosComponent()
+          if (tapPrv.selectTabBar == 0) _AllSavedVideosComponent(),
+          if (tapPrv.selectTabBar == 1) _AllListComponents(),
         ],
       ),
+    );
+  }
+}
+
+class _AllListComponents extends StatelessWidget {
+  const _AllListComponents();
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Consumer<SavePlaylistProvider>(
+      builder: (context, value, child) {
+        if (value.isloading) {
+          return const SliverToBoxAdapter(
+            child: ListMostPortafolio(),
+          );
+        }
+        if (value.playlists.isEmpty) {
+          return const SliverToBoxAdapter(
+            child: Center(
+              child: EmptyStateComponents(
+                  title: 'No hay playlist',
+                  subtitle: 'Aún no ha guardado playlists'),
+            ),
+          );
+        }
+        return SliverList.separated(
+          itemCount: value.playlists.length,
+          separatorBuilder: (context, index) =>
+              SizedBox(height: size.height * .03),
+          itemBuilder: (context, index) {
+            final data = value.playlists[index];
+            return Container(
+              height: size.height * .27,
+              width: size.width,
+              margin: EdgeInsets.symmetric(horizontal: size.width * .04),
+              padding: EdgeInsets.symmetric(horizontal: size.width * .025),
+              child: FadeInComponent(
+                child: Column(
+                  spacing: size.height * .01,
+                  children: [
+                    //banner
+                    Stack(
+                      children: [
+                        Container(
+                            height: size.height * .2,
+                            width: size.width,
+                            decoration: BoxDecoration(
+                              color: PaletteTheme.cards,
+                              borderRadius: BorderRadius.circular(
+                                  ButtonsTheme.borderCards),
+                            ),
+                            child: Center(
+                              child: Text(
+                                data.name,
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
+                            // child: ,
+                            ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

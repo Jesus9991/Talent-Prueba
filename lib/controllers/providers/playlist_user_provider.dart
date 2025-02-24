@@ -16,4 +16,12 @@ class PlaylistUserProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  TextEditingController _playListName = TextEditingController();
+  TextEditingController get playListName => _playListName;
+
+  setPlayListName(String val) {
+    _playListName.text = val;
+    notifyListeners();
+  }
 }
