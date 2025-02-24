@@ -98,6 +98,7 @@ class _PageViewComponent extends StatelessWidget {
                   ),
                   /*informacion de usuario*/
                   _DetailsComponents(
+                    id: data.id,
                     name: data.name,
                     nickName: data.slug,
                     imagen: data.avatar,
@@ -105,6 +106,7 @@ class _PageViewComponent extends StatelessWidget {
                     about: data.about,
                     shared: data.matchesCount.toString(),
                     review: data.reviewCount.toString(),
+                    video: data.videoUrl,
                   ),
                 ],
               ),
@@ -117,17 +119,21 @@ class _PageViewComponent extends StatelessWidget {
 }
 
 class _DetailsComponents extends StatelessWidget {
+  final int id;
   final String name;
   final String nickName;
   final String imagen;
+  final String video;
   final List<String> hobbies;
   final String about;
   final String shared;
   final String review;
 
   const _DetailsComponents({
+    required this.id,
     required this.name,
     required this.nickName,
+    required this.video,
     required this.imagen,
     required this.hobbies,
     required this.about,
@@ -138,66 +144,80 @@ class _DetailsComponents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return /*nombre del usuario*/
-        Padding(
-      padding: EdgeInsets.symmetric(
-          vertical: size.height * .15, horizontal: size.width * .04),
-      child: Stack(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              DiscoverInfoComponent(
-                name: name,
-                nickName: nickName,
-                avatar: imagen,
-              ),
-              if (hobbies.isNotEmpty)
-                GradientText(text: "#${hobbies.join(" #")}"),
-              Text(
-                about,
-                maxLines: 4,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.start,
-              )
-            ],
-          ),
-          /*añade a la lists */
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: size.height * .18),
-              child: Column(
-                // spacing: size.height * .02,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  //
-                  IconBlurComponents(icon: Iconsax.send_2_outline),
-                  _TextComponent(title: shared),
-                  SizedBox(height: size.height * .01),
-                  //
-                  IconBlurComponents(icon: Iconsax.message_2_outline),
-                  _TextComponent(title: review),
-                  SizedBox(height: size.height * .01),
-                  //añadir a favoritos
-                  CircleButtonsComponent(
-                    icon: Iconsax.archive_add_outline,
-                    onTap: () async {
-                      //Todo: debe añadir a la lista
 
-                      await VibrationEffectService().vibrationEffect();
-                    },
+    return Consumer<SavePlaylistProvider>(
+      builder: (context, play, child) {
+        return Padding(
+          padding: EdgeInsets.symmetric(
+              vertical: size.height * .15, horizontal: size.width * .04),
+          child: Stack(
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DiscoverInfoComponent(
+                    name: name,
+                    nickName: nickName,
+                    avatar: imagen,
                   ),
+                  if (hobbies.isNotEmpty)
+                    GradientText(text: "#${hobbies.join(" #")}"),
+                  Text(
+                    about,
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.start,
+                  )
                 ],
               ),
-            ),
+              /*añade a la lists */
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: size.height * .18),
+                  child: Column(
+                    // spacing: size.height * .02,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      //
+                      IconBlurComponents(icon: Iconsax.send_2_outline),
+                      _TextComponent(title: shared),
+                      SizedBox(height: size.height * .01),
+                      //
+                      IconBlurComponents(icon: Iconsax.message_2_outline),
+                      _TextComponent(title: review),
+                      SizedBox(height: size.height * .01),
+                      //añadir a favoritos
+                      CircleButtonsComponent(
+                        icon: play.isSaveVideo(id)
+                            ? Iconsax.archive_minus_bold
+                            : Iconsax.archive_add_outline,
+                        onTap: () async {
+                          await play.saveForVideo(
+                            id: id,
+                            name: name,
+                            slug: nickName,
+                            avatar: imagen,
+                            video: video,
+                          );
+
+                          await VibrationEffectService().vibrationEffect();
+
+                          await play.loadSavedVideos();
+                          await play.loadPlaylists();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
-    /*guardar en lista*/
   }
 }
 

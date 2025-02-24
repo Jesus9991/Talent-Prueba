@@ -45,7 +45,6 @@ class Portfolio {
   final String video;
   final int profileCompleted;
   final String about;
-  final bool sponsored;
   final String city;
   final String position;
   final String country;
@@ -81,7 +80,6 @@ class Portfolio {
     required this.video,
     required this.profileCompleted,
     required this.about,
-    required this.sponsored,
     required this.city,
     required this.position,
     required this.country,
@@ -119,7 +117,6 @@ class Portfolio {
       video: json['video'] ?? '',
       profileCompleted: json['profile_completed'] ?? 0,
       about: json['about'] ?? '',
-      sponsored: json['sponsored'] ?? false,
       city: json['city'] ?? '',
       position: json['position'] ?? '',
       country: json['country'] ?? '',
@@ -148,5 +145,43 @@ class Portfolio {
       tools: List<String>.from(json['tools'] ?? []),
       knowledge: List<String>.from(json['knowledge'] ?? []),
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'email': email,
+      'name': name,
+      'slug': slug,
+      'avatar': avatar,
+      'avatar_200': avatar200,
+      'avatar_400': avatar400,
+      'video_url': videoUrl,
+      'video': video,
+      'profile_completed': profileCompleted,
+      'about': about,
+      'city': city,
+      'position': position,
+      'country': country,
+      'career': career,
+      'skills': skills.join(','), // Guardar como String separado por comas
+      'resume_id': resumeId,
+      'resume_description': resumeDescription,
+      'resume_download': resumeDownload ? 1 : 0,
+      'resume_image': resumeImage,
+      'resume_name': resumeName,
+      'matches_count': matchesCount,
+      'review_count': reviewCount,
+      'shared_count': sharedCount,
+      'type_audience': typeAudience,
+      'type_audiences': typeAudiences.join(','),
+      'created_at': createdAt,
+      'hobbies': hobbies.join(','),
+      'facebook': facebook,
+      'instagram': instagram,
+      'languages': languages.join(','),
+      'tools': tools.join(','),
+      'knowledge': knowledge.join(','),
+    };
   }
 }

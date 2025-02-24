@@ -163,7 +163,7 @@ class AppBarProfileComponents extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'NAME USER.DATA',
+                    'Juan Carlos Pérez',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
@@ -173,7 +173,7 @@ class AppBarProfileComponents extends StatelessWidget {
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    'email@example.com.co',
+                    'juanca@gmail.com',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,

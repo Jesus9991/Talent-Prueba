@@ -1,3 +1,6 @@
+export 'package:talent_pitch/controllers/providers/save_playlist_provider.dart';
+export 'package:talent_pitch/controllers/services/sql/save_video_sql_services.dart';
+export 'package:talent_pitch/models/playlist_models.dart';
 export 'package:talent_pitch/screens/components/discover_videos_component.dart';
 export 'package:talent_pitch/controllers/providers/discover_videos_provider.dart';
 export 'package:talent_pitch/screens/components/empty_state_components.dart';
@@ -41,3 +44,4 @@ export 'package:talent_pitch/controllers/theme/palette_color_theme.dart';
 export 'package:talent_pitch/controllers/path/url_api_path.dart';
 export 'package:talent_pitch/controllers/path/images_path.dart';
 export 'package:talent_pitch/screens/components/shimmers_effects_components.dart';
+export 'package:talent_pitch/models/video_for_sql_models.dart';
