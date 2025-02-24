@@ -1,3 +1,5 @@
+export 'package:talent_pitch/screens/components/discover_videos_component.dart';
+export 'package:talent_pitch/controllers/providers/discover_videos_provider.dart';
 export 'package:talent_pitch/screens/components/empty_state_components.dart';
 export 'package:talent_pitch/controllers/providers/new_talents_provider.dart';
 export 'package:talent_pitch/models/new_talent_models.dart';

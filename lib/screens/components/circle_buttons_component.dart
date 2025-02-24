@@ -93,3 +93,49 @@ class IconBlurComponents extends StatelessWidget {
     );
   }
 }
+
+class CirleGradientBottonComponent extends StatelessWidget {
+  final IconData icon;
+  final double? sizeWidget;
+  final Function onTap;
+  const CirleGradientBottonComponent({
+    super.key,
+    required this.icon,
+    this.sizeWidget,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return InkWell(
+      onTap: () => onTap(),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Blur y fondo con gradiente
+          ClipRRect(
+            borderRadius: BorderRadius.circular(size.width * 0.06),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
+              child: Container(
+                width: sizeWidget ?? size.width * 0.11,
+                height: sizeWidget ?? size.width * 0.11,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: PaletteTheme.principal
+                      .withAlpha((.07 * 255).toInt()), // Fondo semitransparente
+                ),
+              ),
+            ),
+          ),
+          // Icono de búsqueda
+          GradientIcon(
+            icon: icon,
+            size: size.width * 0.06,
+          ),
+        ],
+      ),
+    );
+  }
+}

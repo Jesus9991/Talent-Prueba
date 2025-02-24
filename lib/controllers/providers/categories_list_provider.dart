@@ -58,12 +58,12 @@ class CategoriesListProvider extends ChangeNotifier {
       _isTapCategory = false; // einiciar estado de selección
     } else {
       if (_selectCategory == index) {
-        // Si la categoría ya estaba seleccionada, vuelve a "Ver todas"
+        //si la categoria ya estaba seleccionada, vuelve a "Ver todas"
         _selectCategory = -1;
         _categorySelected = '';
         _isTapCategory = false;
       } else {
-        // Seleccionar una categoría específica
+        //seleccionauna categoría específica
         _selectCategory = index ?? -1;
         _categorySelected = keyCategorie;
         _isTapCategory = true;

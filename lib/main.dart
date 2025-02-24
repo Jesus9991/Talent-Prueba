@@ -27,6 +27,7 @@ class MyProviderAPP extends StatelessWidget {
         ChangeNotifierProvider(
             create: (context) => ListMostViewTalentProvider()),
         ChangeNotifierProvider(create: (context) => NewTalentsProvider()),
+        ChangeNotifierProvider(create: (context) => DiscoverVideosProvider()),
 
         /*reproduccion del video*/
         ChangeNotifierProvider(
