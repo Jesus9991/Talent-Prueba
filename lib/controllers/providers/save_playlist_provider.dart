@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:talent_pitch/controllers/exports/exports.dart';
 
@@ -29,6 +31,7 @@ class SavePlaylistProvider extends ChangeNotifier {
   SavePlaylistProvider() {
     loadPlaylists();
     loadSavedVideos();
+    getAllPlaylists();
   }
 
   saveForVideo({
@@ -126,7 +129,10 @@ class SavePlaylistProvider extends ChangeNotifier {
   Future<List<PortfolioForVideosModels>> getVideosFromPlaylist(
       int playlistId) async {
     final data = await _dbService.getPlaylistVideos(playlistId);
-    return data.map((e) => PortfolioForVideosModels.fromJson(e)).toList();
+    final retorn =
+        data.map((e) => PortfolioForVideosModels.fromJson(e)).toList();
+    log('getVideosFromPlaylist ${retorn.length}');
+    return retorn;
   }
 
   /*añade una nueva playlist */

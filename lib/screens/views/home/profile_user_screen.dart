@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:talent_pitch/controllers/exports/exports.dart';
+import 'package:talent_pitch/controllers/exports/exports_screen.dart';
 
 /*
 Pantalla para visualizar la pantalla del perfil
@@ -73,24 +74,36 @@ class _AllListComponents extends StatelessWidget {
                     //banner
                     Stack(
                       children: [
-                        Container(
-                            height: size.height * .2,
-                            width: size.width,
-                            decoration: BoxDecoration(
-                              color: PaletteTheme.cards,
-                              borderRadius: BorderRadius.circular(
-                                  ButtonsTheme.borderCards),
-                            ),
-                            child: Center(
-                              child: Text(
-                                data.name,
-                                textAlign: TextAlign.center,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
+                        InkWell(
+                          onTap: () async {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => VideosFromPlaylistScreen(
+                                  provider: value,
+                                  id: data.id,
+                                ),
                               ),
-                            )
-                            // child: ,
-                            ),
+                            );
+                            await value.getVideosFromPlaylist(data.id);
+                          },
+                          child: Container(
+                              height: size.height * .2,
+                              width: size.width,
+                              decoration: BoxDecoration(
+                                color: PaletteTheme.cards,
+                                borderRadius: BorderRadius.circular(
+                                    ButtonsTheme.borderCards),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  data.name,
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              )),
+                        ),
                       ],
                     ),
                   ],
@@ -142,26 +155,52 @@ class _AllSavedVideosComponent extends StatelessWidget {
                   spacing: size.height * .01,
                   children: [
                     //banner
-                    Stack(
-                      children: [
-                        Container(
-                          height: size.height * .2,
-                          width: size.width,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image:
-                                    NetworkImageComponent.getImageNetworkImage(
-                                        url: data.avatar)),
-                            borderRadius:
-                                BorderRadius.circular(ButtonsTheme.borderCards),
+                    InkWell(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PersonDetailsScreen(
+                            id: data.id,
+                            name: data.name,
+                            image: data.avatar,
+                            nickName: data.slug,
+                            shared: 0,
+                            review: 0,
+                            about: '',
+                            career: '',
+                            instagram: '',
+                            facebook: '',
+                            languages: '',
+                            tools: '',
+                            position: '',
+                            skills: '',
+                            knowledge: '',
+                            hobbies: [],
+                            resumeImage: '',
+                            videoUrl: data.videoUrl,
                           ),
-                          child: IconBlurComponents(
-                            icon: Iconsax.play_outline,
-                          ),
-                          // child: ,
                         ),
-                      ],
+                      ),
+                      child: Stack(
+                        children: [
+                          Container(
+                            height: size.height * .2,
+                            width: size.width,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImageComponent
+                                      .getImageNetworkImage(url: data.avatar)),
+                              borderRadius: BorderRadius.circular(
+                                  ButtonsTheme.borderCards),
+                            ),
+                            child: IconBlurComponents(
+                              icon: Iconsax.play_outline,
+                            ),
+                            // child: ,
+                          ),
+                        ],
+                      ),
                     ),
                     //informacion
                     UserPhotoNameComponent(

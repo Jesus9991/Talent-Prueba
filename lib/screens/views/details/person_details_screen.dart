@@ -201,9 +201,11 @@ class _ContainerInformation extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SharedComponents(title: '$shared', subtitle: 'Compartidos'),
+            if (shared != 0)
+              SharedComponents(title: '$shared', subtitle: 'Compartidos'),
             SizedBox(width: size.width * .08),
-            SharedComponents(title: '$review', subtitle: 'Comentarios'),
+            if (review != 0)
+              SharedComponents(title: '$review', subtitle: 'Comentarios'),
             const Spacer(),
             //redes sociales
             if (instagram.isNotEmpty)

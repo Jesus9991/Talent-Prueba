@@ -1,3 +1,4 @@
+export 'package:talent_pitch/screens/views/details/videos_from_playlist_screen.dart';
 export 'package:talent_pitch/screens/views/details/person_details_screen.dart';
 export 'package:talent_pitch/screens/views/details/open_video_screen.dart';
 export 'package:talent_pitch/screens/views/home/discover_videos_screen.dart';
